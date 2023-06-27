@@ -8,5 +8,8 @@ int main()
 {
 	cout << "Hello World\n";
 
-	cout << random();
+	seedRandom((unsigned int)time(nullptr));
+	for (int i = 0; i < 10; i++) {
+		cout << random(10, 20) << endl;
+	}
 }
