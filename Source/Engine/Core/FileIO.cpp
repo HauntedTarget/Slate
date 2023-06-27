@@ -4,6 +4,6 @@ namespace bls
 {
 	std::string bls::getFilePath()
 	{
-		return "AHHHHHHHH!";
+		return std::filesystem::current_path().string();
 	}
 }
