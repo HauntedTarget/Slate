@@ -1,22 +1,10 @@
 #include "Core/Random.h"
 #include "Core/FileIO.h"
+#include "Core/Memory.h"
 #include <iostream>
 
 using namespace bls;
 using namespace std;
-
-void* operator new (size_t size) 
-{
-	cout << "allocated: " << size << endl;
-	return malloc(size);
-}
-
-void operator delete (void* memAd, size_t size)
-{
-	cout << "deallocated: " << size << endl;
-
-	free(memAd);
-}
 
 int main()
 {
