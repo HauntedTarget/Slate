@@ -1,12 +1,12 @@
-#include "Core/Random.h"
-#include "Core/FileIO.h"
 #include "Core/Memory.h"
+#include "Core/FileIO.h"
+#include "Core/Time.h"
+#include "Core/Random.h"
+#include "Renderer/Renderer.h"
 #include <iostream>
-#include <chrono>
 
 using namespace bls;
 using namespace std;
-using namespace chrono;
 
 int main()
 {
@@ -18,16 +18,22 @@ int main()
 	delete p;
 	g_memoryTracker.DisplayInfo();
 
-	auto i = true;
+	Time timer;
+	for (int i = 0; i < 1000000; i++) {}
+	cout << timer.GetElapsedNanoseconds() << endl;
 
+	//Time (Unneeded)
+	/*
+	auto i = true;
 	auto start = high_resolution_clock::now();
 
 	for (int i = 0; i < 100000; i++) {}
 
 	auto end = high_resolution_clock::now();
 
-	cout << (end - start).count();
+	cout << duration_cast<microseconds>(end - start).count();*/
 
+	//Paths
 	/*cout << "Hello World\n";
 
 	cout << getFilePath() << endl;
