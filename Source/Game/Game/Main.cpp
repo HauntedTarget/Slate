@@ -22,6 +22,9 @@ int main()
 	for (int i = 0; i < 1000000; i++) {}
 	cout << timer.GetElapsedNanoseconds() << endl;
 
+	CreateWindow("Slate", 800, 600);
+	cin.get(); //pause
+
 	//Time (Unneeded)
 	/*
 	auto i = true;
