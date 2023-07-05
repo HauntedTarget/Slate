@@ -8,9 +8,31 @@
 using namespace bls;
 using namespace std;
 
-int main()
+int main(int argc, char* argv[])
 {
-	g_memoryTracker.DisplayInfo();
+
+	Renderer renderer;
+
+	renderer.Initialize();
+
+	renderer.CreateWindow("SlateEngine", 800, 600);
+
+	while (true) {
+		renderer.SetColor(0, 0, 0, 255);
+
+		//renderer.BeginFrame();
+		for (int i = 0; i < 1000; i++) {
+			renderer.SetColor(random(156), random(156), random(156), 255);
+			renderer.DrawLine(random(renderer.GetWidth()), random(renderer.GetHeight()), random(renderer.GetWidth()), random(renderer.GetHeight()));
+			renderer.SetColor(random(256), random(256), random(256), 255);
+			renderer.DrawPoint(random(renderer.GetWidth()), random(renderer.GetHeight()));
+
+		}
+		//draw
+		renderer.EndFrame();
+	}
+
+	/*g_memoryTracker.DisplayInfo();
 
 	int* p = new int;
 	g_memoryTracker.DisplayInfo();
@@ -20,10 +42,7 @@ int main()
 
 	Time timer;
 	for (int i = 0; i < 1000000; i++) {}
-	cout << timer.GetElapsedNanoseconds() << endl;
-
-	CreateWindow("SlateEngine", 800, 600);
-	cin.get(); //pause
+	cout << timer.GetElapsedNanoseconds() << endl;*/
 
 	//Time (Unneeded)
 	/*
@@ -56,4 +75,6 @@ int main()
 	for (int i = 0; i < 3; i++) {
 		cout << random(10, 20) << endl;
 	}*/
+
+	return 0;
 }
