@@ -1,16 +1,84 @@
-#include "Core/Memory.h"
-#include "Core/FileIO.h"
-#include "Core/Time.h"
-#include "Core/Random.h"
+#include "Core/Core.h"
 #include "Renderer/Renderer.h"
 #include <iostream>
+#include <vector>
 
 using namespace bls;
 using namespace std;
 
-int main()
+using vec2 = Vector2;
+
+class Star
 {
-	g_memoryTracker.DisplayInfo();
+public:
+	Star(const vec2& pos, const vec2& vel):
+		m_pos{pos},
+		m_vel{vel}
+	{}
+
+	void Update()
+	{
+		m_pos += m_vel;
+	}
+
+public:
+	vec2 m_pos;
+	vec2 m_vel;
+};
+
+int main(int argc, char* argv[])
+{
+	seedRandom((unsigned int)time(nullptr));
+
+	Renderer renderer;
+
+	renderer.Initialize();
+
+	renderer.CreateWindow("SlateEngine", 800, 600);
+
+	vector<Star> stars;
+	for (int i = 0; i < 1000; i++)
+	{
+		vec2 pos(random(renderer.GetWidth()), random(renderer.GetHeight()));
+		vec2 vel(randomf(1,4), 0.0f);
+
+		stars.push_back(Star(pos,vel));
+	}
+
+	while (true) {
+		renderer.SetColor(0, 0, 0, 255);
+		renderer.BeginFrame();
+
+		for (auto& star : stars)
+		{
+			star.Update();
+
+			if (star.m_pos.x > renderer.GetWidth()) {
+				star.m_pos.x = 0;
+			}
+			if (star.m_pos.y > renderer.GetHeight()) {
+				star.m_pos.y = 0;
+			}
+
+			renderer.SetColor(random(256), random(256), random(256), 255);
+			renderer.DrawPoint(star.m_pos.x, star.m_pos.y);
+		}
+
+		//for (int i = 0; i < 1000; i++) {
+
+		//	Vector2 pos(randomf(random(renderer.GetWidth()), random(renderer.GetHeight())));
+
+		//	/*renderer.SetColor(random(156), random(156), random(156), 255);
+		//	renderer.DrawLine(pos.x,pos.y,pos.x,pos.y);*/
+		//	renderer.SetColor(random(256), random(256), random(256), 255);
+		//	renderer.DrawPoint(pos.x,pos.y);
+
+		//}
+		//draw
+		renderer.EndFrame();
+	}
+
+	/*g_memoryTracker.DisplayInfo();
 
 	int* p = new int;
 	g_memoryTracker.DisplayInfo();
@@ -20,10 +88,7 @@ int main()
 
 	Time timer;
 	for (int i = 0; i < 1000000; i++) {}
-	cout << timer.GetElapsedNanoseconds() << endl;
-
-	CreateWindow("SlateEngine", 800, 600);
-	cin.get(); //pause
+	cout << timer.GetElapsedNanoseconds() << endl;*/
 
 	//Time (Unneeded)
 	/*
@@ -56,4 +121,6 @@ int main()
 	for (int i = 0; i < 3; i++) {
 		cout << random(10, 20) << endl;
 	}*/
+
+	return 0;
 }
