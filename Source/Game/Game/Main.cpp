@@ -1,7 +1,11 @@
 #include "Core/Core.h"
 #include "Renderer/Renderer.h"
+#include <Renderer/Model.h>
 #include <iostream>
 #include <vector>
+
+using namespace bls;
+using namespace std;
 
 class Star
 {
@@ -31,6 +35,12 @@ int main(int argc, char* argv[])
 
 	renderer.CreateWindow("SlateEngine", 800, 600);
 
+	vector<vec2> points{{-10, 5}, { 10,5 }, { 0,-5 }, {-10, 5}};
+	Model model(points);
+
+	vec2 v{ 5,5 };
+	v.Normalize();
+
 	vector<Star> stars;
 	for (int i = 0; i < 1000; i++)
 	{
@@ -59,17 +69,8 @@ int main(int argc, char* argv[])
 			renderer.DrawPoint(star.m_pos.x, star.m_pos.y);
 		}
 
-		//for (int i = 0; i < 1000; i++) {
+		model.Draw(renderer, {400,300}, 2.5);
 
-		//	Vector2 pos(randomf(random(renderer.GetWidth()), random(renderer.GetHeight())));
-
-		//	/*renderer.SetColor(random(156), random(156), random(156), 255);
-		//	renderer.DrawLine(pos.x,pos.y,pos.x,pos.y);*/
-		//	renderer.SetColor(random(256), random(256), random(256), 255);
-		//	renderer.DrawPoint(pos.x,pos.y);
-
-		//}
-		//draw
 		renderer.EndFrame();
 	}
 
