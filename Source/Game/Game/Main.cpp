@@ -3,9 +3,6 @@
 #include <iostream>
 #include <vector>
 
-using namespace bls;
-using namespace std;
-
 class Star
 {
 public:
