@@ -6,8 +6,6 @@
 using namespace bls;
 using namespace std;
 
-using vec2 = Vector2;
-
 class Star
 {
 public:
