@@ -13,6 +13,8 @@ namespace bls
 
 		void Draw(Renderer& renderer, const vec2& position, float scale);
 
+		bool Load(const std::string& filename);
+
 	private:
 		std::vector<vec2> m_points;
 	};

@@ -9,6 +9,7 @@
 using namespace bls;
 using namespace std;
 
+
 class Star
 {
 public:
@@ -31,6 +32,8 @@ int main(int argc, char* argv[])
 {
 	seedRandom((unsigned int)time(nullptr));
 
+	setFilePath("assets");
+
 	Renderer renderer;
 
 	renderer.Initialize();
@@ -40,8 +43,8 @@ int main(int argc, char* argv[])
 	InputSystem inputSystem;
 	inputSystem.Initialize();
 
-	vector<vec2> points{{-10, 5}, { 10,5 }, { 0,-5 }, { -10, 5 }};
-	Model model(points);
+	Model model;
+	model.Load("player.txt");
 
 	vector<Star> stars;
 	for (int i = 0; i < 1000; i++)
@@ -53,11 +56,13 @@ int main(int argc, char* argv[])
 	}
 
 	vec2 position{ 400,300 };
-	float speed = 5;
+	float speed = 30;
 
 	bool quit = false;
 	while (!quit)
 	{
+		g_time.Tick();
+
 		inputSystem.Update();
 
 		if (inputSystem.GetKeyDown(SDL_SCANCODE_ESCAPE))
@@ -72,7 +77,7 @@ int main(int argc, char* argv[])
 		if (inputSystem.GetKeyDown(SDL_SCANCODE_A)) direction.x = -1;
 		if (inputSystem.GetKeyDown(SDL_SCANCODE_D)) direction.x = 1;
 
-		position += direction * speed * ;
+		position += direction * speed * g_time.GetDeltaTime();
 
 		renderer.SetColor(0, 0, 0, 255);
 		renderer.BeginFrame();
@@ -93,7 +98,7 @@ int main(int argc, char* argv[])
 		}
 
 		renderer.SetColor(255, 255, 255, 255);
-		model.Draw(renderer, position, 2.5);
+		model.Draw(renderer, position, 6.5);
 
 		renderer.EndFrame();
 	}
