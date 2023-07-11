@@ -56,7 +56,7 @@ int main(int argc, char* argv[])
 	}
 
 	vec2 position{ 400,300 };
-	float speed = 30;
+	float speed = 200;
 
 	bool quit = false;
 	while (!quit)
