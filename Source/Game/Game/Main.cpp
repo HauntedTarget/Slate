@@ -4,6 +4,7 @@
 #include "Input/InputSystem.h"
 #include <iostream>
 #include <vector>
+#include <thread>
 
 using namespace bls;
 using namespace std;
@@ -39,65 +40,40 @@ int main(int argc, char* argv[])
 	InputSystem inputSystem;
 	inputSystem.Initialize();
 
-	bool quit = false;
-	while (!quit)
-	{
-		inputSystem.Update();
-
-		renderer.SetColor(0, 0, 0, 255);
-		renderer.BeginFrame();
-
-		if (inputSystem.GetKeyDown(SDL_SCANCODE_ESCAPE))
-		{
-			quit = true;
-		}
-		if (inputSystem.GetMouseButtonDown(0)) {
-			cout << "AHHHHH" << endl;
-			renderer.SetColor(5, 12, 254, 255);
-
-			vector<vec2> points{{-10, 5}, { 10,5 }, { 0,-5 }, { -10, 5 }};
-			Model model(points);
-
-			model.Draw(renderer, { 400,300 }, 2.5);
-		}
-		if (inputSystem.GetMouseButtonDown(1)) {
-			cout << "AHHHHH" << endl;
-			renderer.SetColor(5, 234, 1, 255);
-
-			vector<vec2> points{{-5, 5}, { 5,5 }, { 5,-5 }, { -5, 5 }};
-			Model model(points);
-
-			model.Draw(renderer, { 400,300 }, 2.5);
-		}
-		if (inputSystem.GetMouseButtonDown(2)) {
-			cout << "AHHHHH" << endl;
-			renderer.SetColor(56, 55, 57, 255);
-
-			vector<vec2> points{{-10, 10}, { 10,10 }, { 0,-10 }, { -10, 10 }};
-			Model model(points);
-
-			model.Draw(renderer, { 400,300 }, 2.5);
-		}
-
-		renderer.EndFrame();
-	}
-
-	/*vector<vec2> points{{-10, 5}, { 10,5 }, { 0,-5 }, {-10, 5}};
+	vector<vec2> points{{-10, 5}, { 10,5 }, { 0,-5 }, { -10, 5 }};
 	Model model(points);
-
-	vec2 v{ 5,5 };
-	v.Normalize();
 
 	vector<Star> stars;
 	for (int i = 0; i < 1000; i++)
 	{
 		vec2 pos(random(renderer.GetWidth()), random(renderer.GetHeight()));
-		vec2 vel(randomf(1,4), 0.0f);
+		vec2 vel(randomf(0.05f, 0.5f), 0.0f);
 
-		stars.push_back(Star(pos,vel));
+		stars.push_back(Star(pos, vel));
 	}
 
-	while (true) {
+	vec2 position{ 400,300 };
+	float speed = 5;
+
+	bool quit = false;
+	while (!quit)
+	{
+		inputSystem.Update();
+
+		if (inputSystem.GetKeyDown(SDL_SCANCODE_ESCAPE))
+		{
+			quit = true;
+		}
+
+		vec2 direction;
+
+		if (inputSystem.GetKeyDown(SDL_SCANCODE_W)) direction.y = -1;
+		if (inputSystem.GetKeyDown(SDL_SCANCODE_S)) direction.y = 1;
+		if (inputSystem.GetKeyDown(SDL_SCANCODE_A)) direction.x = -1;
+		if (inputSystem.GetKeyDown(SDL_SCANCODE_D)) direction.x = 1;
+
+		position += direction * speed * ;
+
 		renderer.SetColor(0, 0, 0, 255);
 		renderer.BeginFrame();
 
@@ -116,10 +92,11 @@ int main(int argc, char* argv[])
 			renderer.DrawPoint(star.m_pos.x, star.m_pos.y);
 		}
 
-		model.Draw(renderer, {400,300}, 2.5);
+		renderer.SetColor(255, 255, 255, 255);
+		model.Draw(renderer, position, 2.5);
 
 		renderer.EndFrame();
-	}*/
+	}
 
 	/*g_memoryTracker.DisplayInfo();
 
