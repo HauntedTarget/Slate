@@ -2,6 +2,8 @@
 #include "Renderer/Renderer.h"
 #include "Renderer/Model.h"
 #include "Input/InputSystem.h"
+#include "Player.h"
+#include "Enemy.h"
 #include <iostream>
 #include <vector>
 #include <thread>
@@ -34,14 +36,11 @@ int main(int argc, char* argv[])
 
 	setFilePath("assets");
 
-	Renderer renderer;
+	g_renderer.Initialize();
 
-	renderer.Initialize();
+	g_renderer.CreateWindow("SlateEngine", 800, 600);
 
-	renderer.CreateWindow("SlateEngine", 800, 600);
-
-	InputSystem inputSystem;
-	inputSystem.Initialize();
+	g_inputSystem.Initialize();
 
 	Model model;
 	model.Load("player.txt");
@@ -49,66 +48,75 @@ int main(int argc, char* argv[])
 	vector<Star> stars;
 	for (int i = 0; i < 1000; i++)
 	{
-		vec2 pos(random(renderer.GetWidth()), random(renderer.GetHeight()));
+		vec2 pos(random((float)bls::g_renderer.GetWidth()), random((float)g_renderer.GetHeight()));
 		vec2 vel(randomf(0.05f, 0.5f), 0.0f);
 
 		stars.push_back(Star(pos, vel));
 	}
 
 
-	Transform transform{ {400,300}, 0, 3 };
-	float speed = 200;
-	float turnRate = DegreesToRadians(180);
+	Player player{200, (float)DegreesToRadians(180), { {400,300}, 0, 3 }, model };
 
+	vector<Enemy> enemies;
+	for (int i = 0; i < 10; i++)
+	{
+		Enemy enemy{300, (float)DegreesToRadians(180), { {400,300}, randomf(TwoPi), 6}, model};
+		enemies.push_back(enemy);
+
+	}
+
+
+
+	//Game Loop
 	bool quit = false;
 	while (!quit)
 	{
+		//Update Engine
 		g_time.Tick();
 
-		inputSystem.Update();
+		g_inputSystem.Update();
 
-		if (inputSystem.GetKeyDown(SDL_SCANCODE_ESCAPE))
+		if (g_inputSystem.GetKeyDown(SDL_SCANCODE_ESCAPE))
 		{
 			quit = true;
 		}
 
-		float rotate = 0, scale = 10, thrust = 0;
+		//Update Game
+		player.Update(g_time.GetDeltaTime());
+		for (auto& enemy : enemies)
+		{
+			enemy.Update(g_time.GetDeltaTime());
+		}
+		
 
-		if (inputSystem.GetKeyDown(SDL_SCANCODE_W)) thrust = 1;
-		if (inputSystem.GetKeyDown(SDL_SCANCODE_S)) thrust = -1;
-		if (inputSystem.GetKeyDown(SDL_SCANCODE_A)) rotate = -1;
-		if (inputSystem.GetKeyDown(SDL_SCANCODE_D)) rotate = 1;
-
-		vec2 forword = vec2{ 0,-1 }.Rotate(transform.rotation);
-
-		transform.rotation += rotate * turnRate * g_time.GetDeltaTime();
-		transform.scale = scale;
-		transform.position += forword * thrust * speed * g_time.GetDeltaTime();
-		//transform.position.x = Wrap(transform.position.x, renderer.GetWidth());
-		//transform.position.y = Wrap(transform.position.y, renderer.GetHeight());
-
-		renderer.SetColor(0, 0, 0, 255);
-		renderer.BeginFrame();
+		g_renderer.SetColor(0, 0, 0, 255);
+		g_renderer.BeginFrame();
 
 		for (auto& star : stars)
 		{
 			star.Update();
 
-			if (star.m_pos.x > renderer.GetWidth()) {
+			if (star.m_pos.x > g_renderer.GetWidth()) {
 				star.m_pos.x = 0;
 			}
-			if (star.m_pos.y > renderer.GetHeight()) {
+			if (star.m_pos.y > g_renderer.GetHeight()) {
 				star.m_pos.y = 0;
 			}
 
-			renderer.SetColor(random(256), random(256), random(256), 255);
-			renderer.DrawPoint(star.m_pos.x, star.m_pos.y);
+			g_renderer.SetColor(random(256), random(256), random(256), 255);
+			g_renderer.DrawPoint(star.m_pos.x, star.m_pos.y);
 		}
 
-		renderer.SetColor(255, 255, 255, 255);
-		model.Draw(renderer, transform.position, transform.rotation, transform.scale);
+		g_renderer.SetColor(255, 255, 255, 255);
+		player.Draw(g_renderer);
 
-		renderer.EndFrame();
+		g_renderer.SetColor(255, 0, 0, 255);
+		for (auto& enemy : enemies)
+		{
+			enemy.Draw(g_renderer);
+		}
+
+		g_renderer.EndFrame();
 	}
 
 	/*g_memoryTracker.DisplayInfo();

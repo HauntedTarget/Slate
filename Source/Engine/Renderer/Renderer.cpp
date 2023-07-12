@@ -1,6 +1,7 @@
 #include "Renderer.h"
 namespace bls
 {
+	Renderer g_renderer;
 
 	bool Renderer::Initialize()
 	{

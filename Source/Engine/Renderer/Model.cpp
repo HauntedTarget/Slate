@@ -18,6 +18,11 @@ namespace bls
 		}
 	}
 
+	void Model::Draw(Renderer& renderer, const Transform& transform)
+	{
+		Draw(renderer, transform.position, transform.rotation, transform.scale);
+	}
+
 	bool Model::Load(const std::string& filename)
 	{
 		std::string buffer;

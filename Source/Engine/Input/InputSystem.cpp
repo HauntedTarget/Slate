@@ -2,6 +2,8 @@
 
 namespace bls
 {
+	InputSystem g_inputSystem;
+
 	bool InputSystem::Initialize()
 	{
 		int numKeys;
