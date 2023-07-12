@@ -55,8 +55,10 @@ int main(int argc, char* argv[])
 		stars.push_back(Star(pos, vel));
 	}
 
-	vec2 position{ 400,300 };
+
+	Transform transform{ {400,300}, 0, 3 };
 	float speed = 200;
+	float turnRate = DegreesToRadians(180);
 
 	bool quit = false;
 	while (!quit)
@@ -70,14 +72,20 @@ int main(int argc, char* argv[])
 			quit = true;
 		}
 
-		vec2 direction;
+		float rotate = 0, scale = 10, thrust = 0;
 
-		if (inputSystem.GetKeyDown(SDL_SCANCODE_W)) direction.y = -1;
-		if (inputSystem.GetKeyDown(SDL_SCANCODE_S)) direction.y = 1;
-		if (inputSystem.GetKeyDown(SDL_SCANCODE_A)) direction.x = -1;
-		if (inputSystem.GetKeyDown(SDL_SCANCODE_D)) direction.x = 1;
+		if (inputSystem.GetKeyDown(SDL_SCANCODE_W)) thrust = 1;
+		if (inputSystem.GetKeyDown(SDL_SCANCODE_S)) thrust = -1;
+		if (inputSystem.GetKeyDown(SDL_SCANCODE_A)) rotate = -1;
+		if (inputSystem.GetKeyDown(SDL_SCANCODE_D)) rotate = 1;
 
-		position += direction * speed * g_time.GetDeltaTime();
+		vec2 forword = vec2{ 0,-1 }.Rotate(transform.rotation);
+
+		transform.rotation += rotate * turnRate * g_time.GetDeltaTime();
+		transform.scale = scale;
+		transform.position += forword * thrust * speed * g_time.GetDeltaTime();
+		//transform.position.x = Wrap(transform.position.x, renderer.GetWidth());
+		//transform.position.y = Wrap(transform.position.y, renderer.GetHeight());
 
 		renderer.SetColor(0, 0, 0, 255);
 		renderer.BeginFrame();
@@ -98,7 +106,7 @@ int main(int argc, char* argv[])
 		}
 
 		renderer.SetColor(255, 255, 255, 255);
-		model.Draw(renderer, position, 6.5);
+		model.Draw(renderer, transform.position, transform.rotation, transform.scale);
 
 		renderer.EndFrame();
 	}
