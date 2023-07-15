@@ -2,6 +2,7 @@
 #include "Renderer/Renderer.h"
 #include "Renderer/Model.h"
 #include "Input/InputSystem.h"
+#include "Audio/AudioSystem.h"
 #include "Player.h"
 #include "Enemy.h"
 #include <iostream>

@@ -3,6 +3,8 @@
 
 namespace bls
 {
+	AudioSystem g_audioSystem;
+
 	bool AudioSystem::Initialize()
 	{
 		FMOD::System_Create(&m_fmodSystem);
@@ -12,7 +14,7 @@ namespace bls
 	}
 	void AudioSystem::Shutdown()
 	{
-		for (auto sound : m_sounds) sound.second->release();
+		for (auto& sound : m_sounds) sound.second->release();
 		m_sounds.clear();
 		m_fmodSystem->close();
 		m_fmodSystem->release();
