@@ -169,6 +169,9 @@
     <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Engine\Audio\Audio.vcxproj">
+      <Project>{17e08c33-4153-4b68-a25f-856b67952216}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\..\Engine\Core\Core.vcxproj">
       <Project>{89a6c8bc-e3d8-4fad-a5bc-1dc552463c89}</Project>
     </ProjectReference>

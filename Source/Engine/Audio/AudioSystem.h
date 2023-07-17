@@ -3,8 +3,6 @@
 #include <string>
 #include <map>
 
-
-
 namespace bls
 {
 	class AudioSystem

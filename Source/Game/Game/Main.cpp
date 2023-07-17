@@ -37,8 +37,11 @@ int main(int argc, char* argv[])
 
 	setFilePath("assets");
 
-	g_renderer.Initialize();
+	g_audioSystem.Initialize();
+	g_audioSystem.AddAudio("death", "explode.wav");
+	g_audioSystem.AddAudio("shoot", "lazer.wav");
 
+	g_renderer.Initialize();
 	g_renderer.CreateWindow("SlateEngine", 800, 600);
 
 	g_inputSystem.Initialize();
@@ -72,6 +75,9 @@ int main(int argc, char* argv[])
 	bool quit = false;
 	while (!quit)
 	{
+		//Update Audio System
+		g_audioSystem.Update();
+
 		//Update Engine
 		g_time.Tick();
 

@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{1b77ffa2-ea10-4317-bfe2-4ca5e371cf1c}</ProjectGuid>
+    <ProjectGuid>{17e08c33-4153-4b68-a25f-856b67952216}</ProjectGuid>
     <RootNamespace>Audio</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -59,19 +59,19 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\Source\PropertySheets\Common.props" />
+    <Import Project="..\..\PropertySheets\Common.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\Source\PropertySheets\Common.props" />
+    <Import Project="..\..\PropertySheets\Common.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\Source\PropertySheets\Common.props" />
+    <Import Project="..\..\PropertySheets\Common.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\Source\PropertySheets\Common.props" />
+    <Import Project="..\..\PropertySheets\Common.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -86,6 +86,9 @@
       </SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>fmod_vc.lib</AdditionalDependencies>
+    </Lib>
     <Lib>
       <AdditionalLibraryDirectories>$(ThirdPartyDir)fmod\core\lib\$(PlatformTarget)</AdditionalLibraryDirectories>
     </Lib>
@@ -110,6 +113,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
+      <AdditionalDependencies>fmod_vc.lib</AdditionalDependencies>
+    </Lib>
+    <Lib>
       <AdditionalLibraryDirectories>$(ThirdPartyDir)fmod\core\lib\$(PlatformTarget)</AdditionalLibraryDirectories>
     </Lib>
     <PostBuildEvent>
@@ -128,6 +134,9 @@
       </SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>fmod_vc.lib</AdditionalDependencies>
+    </Lib>
     <Lib>
       <AdditionalLibraryDirectories>$(ThirdPartyDir)fmod\core\lib\$(PlatformTarget)</AdditionalLibraryDirectories>
     </Lib>
@@ -151,6 +160,9 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>fmod_vc.lib</AdditionalDependencies>
+    </Lib>
     <Lib>
       <AdditionalLibraryDirectories>$(ThirdPartyDir)fmod\core\lib\$(PlatformTarget)</AdditionalLibraryDirectories>
     </Lib>
