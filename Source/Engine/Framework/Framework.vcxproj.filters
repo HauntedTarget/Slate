@@ -7,28 +7,19 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp">
+    <ClInclude Include="GameObject.h">
       <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
+    </ClInclude>
+    <ClInclude Include="Scene.h">
       <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Lazer.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Enemy.h">
+    <ClCompile Include="GameObject.cpp">
       <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
       <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Lazer.h">
-      <Filter>Source</Filter>
-    </ClInclude>
+    </ClCompile>
   </ItemGroup>
 </Project>

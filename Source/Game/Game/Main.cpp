@@ -1,18 +1,21 @@
+//Included Files (Always needed)
 #include "Core/Core.h"
 #include "Renderer/Renderer.h"
 #include "Renderer/Model.h"
 #include "Input/InputSystem.h"
 #include "Audio/AudioSystem.h"
+#include "Framework/Scene.h"
 #include "Player.h"
 #include "Enemy.h"
 #include <iostream>
 #include <vector>
 #include <thread>
 
+//Used Namespaces (Shave off little bits of code)
 using namespace bls;
 using namespace std;
 
-
+//Star Feild Function
 class Star
 {
 public:
@@ -31,24 +34,32 @@ public:
 	vec2 m_vel;
 };
 
+//Main Function
 int main(int argc, char* argv[])
 {
+	//Sets "Random" Seed
 	seedRandom((unsigned int)time(nullptr));
 
+	//Init Systems
+	g_audioSystem.Initialize();
+	g_renderer.Initialize();
+	g_inputSystem.Initialize();
+
+	//Create Game Window
+	g_renderer.CreateWindow("SlateEngine", 800, 600);
+
+	//Selects Asset Filepath
 	setFilePath("assets");
 
-	g_audioSystem.Initialize();
+	//Init Assets
 	g_audioSystem.AddAudio("death", "explode.wav");
 	g_audioSystem.AddAudio("shoot", "lazer.wav");
 
-	g_renderer.Initialize();
-	g_renderer.CreateWindow("SlateEngine", 800, 600);
-
-	g_inputSystem.Initialize();
-
+	//Load Player Model
 	Model model;
 	model.Load("player.txt");
 
+	//Star Field Creation
 	vector<Star> stars;
 	for (int i = 0; i < 1000; i++)
 	{
@@ -58,18 +69,20 @@ int main(int argc, char* argv[])
 		stars.push_back(Star(pos, vel));
 	}
 
+	Scene scene;
 
-	Player player{200, (float)DegreesToRadians(180), { {400,300}, 0, 3 }, model };
+	//Player Creation
+	scene.Add(new Player{ 200, (float)DegreesToRadians(180), { {400,300}, 0, 3 }, model });
 
+	//Enemy Array Creation
+	
 	vector<Enemy> enemies;
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 5; i++)
 	{
-		Enemy enemy{300, (float)DegreesToRadians(180), { {400,300}, randomf(TwoPi), 6}, model};
-		enemies.push_back(enemy);
+		Enemy* enemy = new Enemy{300, (float)DegreesToRadians(180), { {400,300}, randomf(TwoPi), 6}, model};
+		scene.Add(enemy);
 
 	}
-
-
 
 	//Game Loop
 	bool quit = false;
@@ -89,16 +102,13 @@ int main(int argc, char* argv[])
 		}
 
 		//Update Game
-		player.Update(g_time.GetDeltaTime());
-		for (auto& enemy : enemies)
-		{
-			enemy.Update(g_time.GetDeltaTime());
-		}
+		scene.Update(g_time.GetDeltaTime());
 		
-
+		//Frame Init
 		g_renderer.SetColor(0, 0, 0, 255);
 		g_renderer.BeginFrame();
 
+		//Star Drawer
 		for (auto& star : stars)
 		{
 			star.Update();
@@ -114,61 +124,18 @@ int main(int argc, char* argv[])
 			g_renderer.DrawPoint(star.m_pos.x, star.m_pos.y);
 		}
 
+		//Player Drawer
 		g_renderer.SetColor(255, 255, 255, 255);
-		player.Draw(g_renderer);
+		scene.Draw(g_renderer);
 
-		g_renderer.SetColor(255, 0, 0, 255);
-		for (auto& enemy : enemies)
-		{
-			enemy.Draw(g_renderer);
-		}
+		//Enemy Drawer (Re-add With Varients)
+		//g_renderer.SetColor(255, 0, 0, 255);
+		//scene.Draw(g_renderer);
 
+		//End of Frame
 		g_renderer.EndFrame();
 	}
 
-	/*g_memoryTracker.DisplayInfo();
-
-	int* p = new int;
-	g_memoryTracker.DisplayInfo();
-
-	delete p;
-	g_memoryTracker.DisplayInfo();
-
-	Time timer;
-	for (int i = 0; i < 1000000; i++) {}
-	cout << timer.GetElapsedNanoseconds() << endl;*/
-
-	//Time (Unneeded)
-	/*
-	auto i = true;
-	auto start = high_resolution_clock::now();
-
-	for (int i = 0; i < 100000; i++) {}
-
-	auto end = high_resolution_clock::now();
-
-	cout << duration_cast<microseconds>(end - start).count();*/
-
-	//Paths
-	/*cout << "Hello World\n";
-
-	cout << getFilePath() << endl;
-
-	setFilePath("Assets");
-	cout << getFilePath() << endl;
-
-	size_t size;
-	getFileSize("Game.txt", size);
-	cout << size << endl;
-
-	std::string s;
-	readFile("Game.txt", s);
-	cout << s << endl;
-
-	seedRandom((unsigned int)time(nullptr));
-	for (int i = 0; i < 3; i++) {
-		cout << random(10, 20) << endl;
-	}*/
-
+	//End of File
 	return 0;
 }

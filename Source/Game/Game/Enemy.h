@@ -1,7 +1,7 @@
 #pragma once
-#include "GameObject.h"
+#include "Framework/GameObject.h"
 
-class Enemy : public GameObject
+class Enemy : public bls::GameObject
 {
 
 public:
