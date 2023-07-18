@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "Lazer.h"
+#include "Framework/Scene.h"
 #include "Input/InputSystem.h"
 #include "Renderer/Renderer.h"
 #include "Audio/AudioSystem.h"
@@ -22,6 +23,7 @@ void Player::Update(float dt)
 		//Create Weapon
 		bls::Transform transform{m_transform.position, m_transform.rotation, m_transform.scale * 0.5f};
 		Lazer* beam = new Lazer{ 400, transform, m_model };
+		m_scene->Add(beam);
 	}
 
 	//Movement Updates
