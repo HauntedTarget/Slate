@@ -12,13 +12,19 @@ namespace bls{
 			m_model{ model }
 		{}
 
-		virtual void Update(float dt) = 0;
+		virtual void Update(float dt);
 		virtual void Draw(bls::Renderer& renderer);
 
 		class Scene* m_scene = nullptr;
+		friend class Scene;
+
+		bls::Transform m_transform;
 
 	protected:
-		bls::Transform m_transform;
+		bool m_destroyed = false;
+		//Can be used as a range for lazers/bullets
+		float m_lifespan = -10.0f;
+
 		bls::Model m_model;
 	};
 }

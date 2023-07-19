@@ -8,6 +8,8 @@ namespace bls
 	{
 		if (m_points.empty()) return;
 
+		renderer.SetColor(m_color);
+
 		for (int i = 0; i < m_points.size()-1; i++)
 		{
 			vec2 p1 = (m_points[i] * scale).Rotate(rotation) + position;
@@ -20,6 +22,8 @@ namespace bls
 
 	void Model::Draw(Renderer& renderer, const Transform& transform)
 	{
+
+
 		Draw(renderer, transform.position, transform.rotation, transform.scale);
 	}
 
@@ -30,9 +34,14 @@ namespace bls
 
 		std::istringstream stream(buffer);
 
+		//Read Color
+		stream >> m_color;
+
+		//Read Shape
 		std::string line;
 		std::getline(stream, line);
 
+		//Read Vector2 Points
 		int numPoints = std::stoi(line);
 		for (int i = 0; i < numPoints; i++)
 		{

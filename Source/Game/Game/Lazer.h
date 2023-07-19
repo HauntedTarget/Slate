@@ -13,6 +13,7 @@ public:
 	{
 		//Play Weapon Fire
 		bls::g_audioSystem.PlayOneShot("shoot");
+		m_lifespan = 2.0f;
 	}
 	void Update(float dt) override;
 

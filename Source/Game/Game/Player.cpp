@@ -7,6 +7,8 @@
 
 void Player::Update(float dt)
 {
+	GameObject::Update(dt);
+
 	//Movement Values
 	float rotate = 0, scale = 10, thrust = 0;
 
@@ -22,8 +24,8 @@ void Player::Update(float dt)
 	{
 		//Create Weapon
 		bls::Transform transform{m_transform.position, m_transform.rotation, m_transform.scale * 0.5f};
-		Lazer* beam = new Lazer{ 400, transform, m_model };
-		m_scene->Add(beam);
+		std::unique_ptr<Lazer> beam = std::make_unique<Lazer>( 400.0f, transform, m_model );
+		m_scene->Add(std::move(beam));
 	}
 
 	//Movement Updates

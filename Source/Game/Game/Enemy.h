@@ -9,9 +9,11 @@ public:
 		GameObject{ transfrom, model },
 		m_speed{ speed },
 		m_turnRate{ turnRate }
-	{}
+	{
+		m_fireTimer = bls::randomf(2.0f, 4.0f);
+	}
 	void Update(float dt) override;
 
 private:
-	float m_speed = 0, m_turnRate = 0;
+	float m_speed = 0, m_turnRate = 0, m_fireTimer = 0;
 };

@@ -1,4 +1,4 @@
-//Included Files (Always needed)
+	//Included Files (Always needed)
 #include "Core/Core.h"
 #include "Renderer/Renderer.h"
 #include "Renderer/Model.h"
@@ -7,15 +7,18 @@
 #include "Framework/Scene.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "Renderer/Font.h"
+#include "Renderer/Text.h"
+	//Included Libs (Always needed)
 #include <iostream>
-#include <vector>
 #include <thread>
+#include <vector>
 
-//Used Namespaces (Shave off little bits of code)
+	//Used Namespaces (Shave off little bits of code)
 using namespace bls;
 using namespace std;
 
-//Star Feild Function
+	//Star Feild Function
 class Star
 {
 public:
@@ -37,33 +40,42 @@ public:
 //Main Function
 int main(int argc, char* argv[])
 {
-	//Sets "Random" Seed
+	MemoryTracker::Initialize();
+
+		//Sets "Random" Seed
 	seedRandom((unsigned int)time(nullptr));
 
-	//Init Systems
+		//Init Systems
 	g_audioSystem.Initialize();
 	g_renderer.Initialize();
 	g_inputSystem.Initialize();
 
-	//Create Game Window
+		//Create Game Window
 	g_renderer.CreateWindow("SlateEngine", 800, 600);
 
-	//Selects Asset Filepath
+		//Selects Asset Filepath
 	setFilePath("assets");
 
-	//Init Assets
+		//Init Assets
 	g_audioSystem.AddAudio("death", "explode.wav");
 	g_audioSystem.AddAudio("shoot", "lazer.wav");
 
-	//Load Player Model
+		// Init Font
+	shared_ptr<Font> font = make_shared<Font>("Arcade.ttf", 24);
+	
+		//Create Text Object
+	unique_ptr<Text> text = make_unique<Text>(font);
+	text->Create(g_renderer, "AHHHHHHHHHHHHHHH", Color{ 0.5, 1, 0, 1 });
+
+		//Load Player Model
 	Model model;
 	model.Load("player.txt");
 
-	//Star Field Creation
+		//Star Field Creation
 	vector<Star> stars;
 	for (int i = 0; i < 1000; i++)
 	{
-		vec2 pos(random((float)bls::g_renderer.GetWidth()), random((float)g_renderer.GetHeight()));
+		vec2 pos(random((float)bls::g_renderer.GetWidth()), random((float)bls::g_renderer.GetHeight()));
 		vec2 vel(randomf(0.05f, 0.5f), 0.0f);
 
 		stars.push_back(Star(pos, vel));
@@ -71,27 +83,26 @@ int main(int argc, char* argv[])
 
 	Scene scene;
 
-	//Player Creation
-	scene.Add(new Player{ 200, (float)DegreesToRadians(180), { {400,300}, 0, 3 }, model });
+		//Player Creation
+	scene.Add(make_unique<Player>(200.0f, (float)DegreesToRadians(180), Transform( (400,300), 0, 3 ), model ));
 
-	//Enemy Array Creation
-	
+		//Enemy Array Creation
 	vector<Enemy> enemies;
 	for (int i = 0; i < 5; i++)
 	{
-		Enemy* enemy = new Enemy{300, (float)DegreesToRadians(180), { {400,300}, randomf(TwoPi), 6}, model};
-		scene.Add(enemy);
+		unique_ptr<Enemy> enemy = make_unique<Enemy>(300.0f, (float)DegreesToRadians(180), Transform((random((float)g_renderer.GetWidth()), random((float)g_renderer.GetHeight())), randomf(360), 5), model);
+		scene.Add(move(enemy));
 
 	}
 
-	//Game Loop
+		//Game Loop
 	bool quit = false;
 	while (!quit)
 	{
-		//Update Audio System
+			//Update Audio System
 		g_audioSystem.Update();
 
-		//Update Engine
+			//Update Engine
 		g_time.Tick();
 
 		g_inputSystem.Update();
@@ -101,14 +112,14 @@ int main(int argc, char* argv[])
 			quit = true;
 		}
 
-		//Update Game
+			//Update Game
 		scene.Update(g_time.GetDeltaTime());
 		
-		//Frame Init
+			//Frame Init
 		g_renderer.SetColor(0, 0, 0, 255);
 		g_renderer.BeginFrame();
 
-		//Star Drawer
+			//Star Drawer
 		for (auto& star : stars)
 		{
 			star.Update();
@@ -124,18 +135,21 @@ int main(int argc, char* argv[])
 			g_renderer.DrawPoint(star.m_pos.x, star.m_pos.y);
 		}
 
-		//Player Drawer
+			//Player Drawer
 		g_renderer.SetColor(255, 255, 255, 255);
 		scene.Draw(g_renderer);
 
-		//Enemy Drawer (Re-add With Varients)
+			//Enemy Drawer (Re-add With Varients)
 		//g_renderer.SetColor(255, 0, 0, 255);
 		//scene.Draw(g_renderer);
 
-		//End of Frame
+		//Text Drawer
+		text->Draw(g_renderer, 400, 300);
+
+			//End of Frame
 		g_renderer.EndFrame();
 	}
 
-	//End of File
+		//End of File
 	return 0;
 }
