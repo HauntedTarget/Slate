@@ -9,20 +9,35 @@ namespace bls{
 			gameObjects->Update(dt);
 		}*/
 
-		// Remove Destroyed
+		// Update and Remove Destroyed
 		auto iter = m_GameObjects.begin();
 
 		while (iter != m_GameObjects.end())
 		{
 			(*iter)->Update(dt);
-			if (iter->get()->m_destroyed) 
+
+			(iter->get()->m_destroyed) ? iter = m_GameObjects.erase(iter) : iter++;
+		}
+
+		//Check Collisions
+		for (auto iter1 = m_GameObjects.begin(); iter1 != m_GameObjects.end(); iter1++) 
+		{
+
+			for (auto iter2 = std::next(iter1, 1); iter2 != m_GameObjects.end(); iter2++)
 			{
-				iter = m_GameObjects.erase(iter);
+
+				float distance = (*iter1)->m_transform.position.Distance((*iter2)->m_transform.position);
+				float combineRadius = (*iter1)->GetRadius() + (*iter2)->GetRadius();
+
+				if (distance <= combineRadius) 
+				{
+					//OnCollision Caller
+					(*iter1)->OnCollision(iter2->get());
+					(*iter2)->OnCollision(iter1->get());
+				}
+
 			}
-			else
-			{
-				iter++;
-			}
+
 		}
 	}
 

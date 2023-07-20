@@ -25,6 +25,7 @@ void Enemy::Update(float dt)
 		//Create Weapon
 		bls::Transform transform{m_transform.position, m_transform.rotation, m_transform.scale * 0.5f};
 		std::unique_ptr<Lazer> beam = std::make_unique<Lazer>(400.0f, transform, m_model);
+		beam->m_tag = "UnFriendly";
 		m_scene->Add(std::move(beam));
 
 	}
@@ -34,4 +35,12 @@ void Enemy::Update(float dt)
 	m_transform.position += forword * 1 * m_speed * dt;
 	m_transform.position.x = bls::Wrap(m_transform.position.x, (float)bls::g_renderer.GetWidth());
 	m_transform.position.y = bls::Wrap(m_transform.position.y, (float)bls::g_renderer.GetHeight());
+}
+
+void Enemy::OnCollision(GameObject* object)
+{
+	if (object->m_tag == "Friendly" && !object->m_destroyed)
+	{
+		m_destroyed = true;
+	}
 }

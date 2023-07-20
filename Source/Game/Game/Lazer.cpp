@@ -12,3 +12,11 @@ void Lazer::Update(float dt)
 	bls::vec2 forword = bls::vec2{ 0,-1 }.Rotate(m_transform.rotation);
 	m_transform.position += forword * 1 * m_speed * dt;
 }
+
+void Lazer::OnCollision(GameObject* object)
+{
+	if (!m_scene->GetGameObject<Lazer>() && !object->m_destroyed)
+	{
+		m_destroyed = true;
+	}
+}

@@ -2,12 +2,15 @@
 
 #include "Framework/GameObject.h"
 #include "Audio/AudioSystem.h"
+#include "Framework/Scene.h"
+#include "Input/InputSystem.h"
+#include "Renderer/Renderer.h"
 
 class Lazer : public bls::GameObject
 {
 
 public:
-	Lazer(float speed, const bls::Transform& transfrom, const bls::Model& model) :
+	Lazer(float speed, const bls::Transform& transfrom, std::shared_ptr<bls::Model> model) :
 		GameObject{ transfrom, model },
 		m_speed{ speed }
 	{
@@ -16,6 +19,7 @@ public:
 		m_lifespan = 2.0f;
 	}
 	void Update(float dt) override;
+	void OnCollision(GameObject* object) override;
 
 private:
 	float m_speed = 0;

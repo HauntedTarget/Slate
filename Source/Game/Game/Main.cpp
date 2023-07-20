@@ -1,7 +1,7 @@
 	//Included Files (Always needed)
 #include "Core/Core.h"
 #include "Renderer/Renderer.h"
-#include "Renderer/Model.h"
+#include "Renderer/ModelManager.h"
 #include "Input/InputSystem.h"
 #include "Audio/AudioSystem.h"
 #include "Framework/Scene.h"
@@ -67,10 +67,6 @@ int main(int argc, char* argv[])
 	unique_ptr<Text> text = make_unique<Text>(font);
 	text->Create(g_renderer, "AHHHHHHHHHHHHHHH", Color{ 0.5, 1, 0, 1 });
 
-		//Load Player Model
-	Model model;
-	model.Load("player.txt");
-
 		//Star Field Creation
 	vector<Star> stars;
 	for (int i = 0; i < 1000; i++)
@@ -84,13 +80,16 @@ int main(int argc, char* argv[])
 	Scene scene;
 
 		//Player Creation
-	scene.Add(make_unique<Player>(200.0f, (float)DegreesToRadians(180), Transform( (400,300), 0, 3 ), model ));
+	unique_ptr<Player> player = make_unique<Player>(200.0f, (float)DegreesToRadians(180), Transform((400, 300), 0, 3), g_modelLib.Get("Player.txt"));
+	player->m_tag = "Player";
+	scene.Add(std::move(player));
 
 		//Enemy Array Creation
 	vector<Enemy> enemies;
 	for (int i = 0; i < 5; i++)
 	{
-		unique_ptr<Enemy> enemy = make_unique<Enemy>(300.0f, (float)DegreesToRadians(180), Transform((random((float)g_renderer.GetWidth()), random((float)g_renderer.GetHeight())), randomf(360), 5), model);
+		unique_ptr<Enemy> enemy = make_unique<Enemy>(50.0f, (float)DegreesToRadians(180), Transform((random((float)g_renderer.GetWidth()), random((float)g_renderer.GetHeight())), randomf(360), 5), g_modelLib.Get("Enemy.txt"));
+		enemy->m_tag = "Enemy";
 		scene.Add(move(enemy));
 
 	}

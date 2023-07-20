@@ -19,6 +19,9 @@
     <ClInclude Include="Text.h">
       <Filter>Source</Filter>
     </ClInclude>
+    <ClInclude Include="ModelManager.h">
+      <Filter>Source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Renderer.cpp">
@@ -31,6 +34,9 @@
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Text.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelManager.cpp">
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,9 +1,4 @@
 #include "Player.h"
-#include "Lazer.h"
-#include "Framework/Scene.h"
-#include "Input/InputSystem.h"
-#include "Renderer/Renderer.h"
-#include "Audio/AudioSystem.h"
 
 void Player::Update(float dt)
 {
@@ -25,6 +20,7 @@ void Player::Update(float dt)
 		//Create Weapon
 		bls::Transform transform{m_transform.position, m_transform.rotation, m_transform.scale * 0.5f};
 		std::unique_ptr<Lazer> beam = std::make_unique<Lazer>( 400.0f, transform, m_model );
+		beam->m_tag = "Friendly";
 		m_scene->Add(std::move(beam));
 	}
 
@@ -36,4 +32,19 @@ void Player::Update(float dt)
 	m_transform.position += forword * thrust * m_speed * dt;
 	m_transform.position.x = bls::Wrap(m_transform.position.x, (float)bls::g_renderer.GetWidth());
 	m_transform.position.y = bls::Wrap(m_transform.position.y, (float)bls::g_renderer.GetHeight());
+}
+
+void Player::OnCollision(GameObject* object)
+{
+	//Player* p = dynamic_cast<Player>(other)
+
+	if (object->m_tag == "UnFriendly" && !object->m_destroyed)
+	{
+		m_nowHealth -= 5;
+
+		if (m_nowHealth <= 0)
+		{
+			m_destroyed = true;
+		}
+	}
 }
