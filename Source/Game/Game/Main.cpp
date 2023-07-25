@@ -9,6 +9,7 @@
 #include "Enemy.h"
 #include "Renderer/Font.h"
 #include "Renderer/Text.h"
+#include "FrameLastGame.h"
 	//Included Libs (Always needed)
 #include <iostream>
 #include <thread>
@@ -50,22 +51,15 @@ int main(int argc, char* argv[])
 	g_renderer.Initialize();
 	g_inputSystem.Initialize();
 
-		//Create Game Window
-	g_renderer.CreateWindow("SlateEngine", 800, 600);
-
 		//Selects Asset Filepath
 	setFilePath("assets");
 
-		//Init Assets
-	g_audioSystem.AddAudio("death", "explode.wav");
-	g_audioSystem.AddAudio("shoot", "lazer.wav");
+		//Create Game Window
+	g_renderer.CreateWindow("SlateEngine", 800, 600);
 
-		// Init Font
-	shared_ptr<Font> font = make_shared<Font>("Arcade.ttf", 24);
-	
-		//Create Text Object
-	unique_ptr<Text> text = make_unique<Text>(font);
-	text->Create(g_renderer, "AHHHHHHHHHHHHHHH", Color{ 0.5, 1, 0, 1 });
+		//Init Game
+	unique_ptr<FrameLastGame> game = make_unique<FrameLastGame>();
+	game->Init();
 
 		//Star Field Creation
 	vector<Star> stars;
@@ -77,22 +71,7 @@ int main(int argc, char* argv[])
 		stars.push_back(Star(pos, vel));
 	}
 
-	Scene scene;
-
-		//Player Creation
-	unique_ptr<Player> player = make_unique<Player>(200.0f, (float)DegreesToRadians(180), Transform((400, 300), 0, 3), g_modelLib.Get("Player.txt"));
-	player->m_tag = "Player";
-	scene.Add(std::move(player));
-
-		//Enemy Array Creation
-	vector<Enemy> enemies;
-	for (int i = 0; i < 5; i++)
-	{
-		unique_ptr<Enemy> enemy = make_unique<Enemy>(50.0f, (float)DegreesToRadians(180), Transform((random((float)g_renderer.GetWidth()), random((float)g_renderer.GetHeight())), randomf(360), 5), g_modelLib.Get("Enemy.txt"));
-		enemy->m_tag = "Enemy";
-		scene.Add(move(enemy));
-
-	}
+	
 
 		//Game Loop
 	bool quit = false;
@@ -112,7 +91,7 @@ int main(int argc, char* argv[])
 		}
 
 			//Update Game
-		scene.Update(g_time.GetDeltaTime());
+		game->Update(g_time.GetDeltaTime());
 		
 			//Frame Init
 		g_renderer.SetColor(0, 0, 0, 255);
@@ -136,13 +115,13 @@ int main(int argc, char* argv[])
 
 			//Player Drawer
 		g_renderer.SetColor(255, 255, 255, 255);
-		scene.Draw(g_renderer);
+		game->Draw(g_renderer);
 
 			//Enemy Drawer (Re-add With Varients)
 		//g_renderer.SetColor(255, 0, 0, 255);
 		//scene.Draw(g_renderer);
 
-		//Text Drawer
+			//Text Drawer\
 		text->Draw(g_renderer, 400, 300);
 
 			//End of Frame

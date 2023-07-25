@@ -19,6 +19,9 @@
     <ClCompile Include="Lazer.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="FrameLastGame.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enemy.h">
@@ -28,6 +31,9 @@
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Lazer.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameLastGame.h">
       <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>

@@ -2,7 +2,6 @@
 #include "Core/Core.h"
 #include "Renderer/Model.h"
 #include "Core/Memory.h"
-
 #include <memory>
 
 namespace bls{
@@ -23,6 +22,8 @@ namespace bls{
 
 		class Scene* m_scene = nullptr;
 		friend class Scene;
+
+		class Game* m_game = nullptr;
 
 		Transform m_transform;
 

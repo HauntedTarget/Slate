@@ -1,4 +1,6 @@
 #include "Player.h"
+#include "FrameLastGame.h"
+#include "Renderer/ModelManager.h"
 
 void Player::Update(float dt)
 {
@@ -19,7 +21,7 @@ void Player::Update(float dt)
 	{
 		//Create Weapon
 		bls::Transform transform{m_transform.position, m_transform.rotation, m_transform.scale * 0.5f};
-		std::unique_ptr<Lazer> beam = std::make_unique<Lazer>( 400.0f, transform, m_model );
+		std::unique_ptr<Lazer> beam = std::make_unique<Lazer>( 400.0f, transform, bls::g_modelLib.Get("Lazer.txt"));
 		beam->m_tag = "Friendly";
 		m_scene->Add(std::move(beam));
 	}
@@ -40,11 +42,14 @@ void Player::OnCollision(GameObject* object)
 
 	if (object->m_tag == "UnFriendly" && !object->m_destroyed)
 	{
-		m_nowHealth -= 5;
+		m_game->SetLife(m_game->GetLife() - 5);
 
-		if (m_nowHealth <= 0)
+		if (m_game->GetLife() <= 0)
 		{
 			m_destroyed = true;
+			dynamic_cast<bls::FrameLastGame*>(m_game)->SetState(bls::FrameLastGame::eState::GameOver);
 		}
+
+		object->m_destroyed = true;
 	}
 }

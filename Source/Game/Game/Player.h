@@ -19,5 +19,5 @@ public:
 	void OnCollision(GameObject* object) override;
 
 private:
-	float m_speed = 0, m_turnRate = 0, m_nowHealth = 100, m_maxHealth = 100;
+	float m_speed = 0, m_turnRate = 0;
 };
