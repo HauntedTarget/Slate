@@ -10,6 +10,8 @@
 #include "Renderer/Font.h"
 #include "Renderer/Text.h"
 #include "FrameLastGame.h"
+#include "Framework/Emitter.h"
+#include "Framework/Scene.h"
 	//Included Libs (Always needed)
 #include <iostream>
 #include <thread>

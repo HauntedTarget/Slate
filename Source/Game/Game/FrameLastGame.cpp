@@ -5,6 +5,7 @@
 #include "Renderer/ModelManager.h"
 #include "Enemy.h"
 #include "Player.h"
+#include <Framework/Emitter.h>
 
 namespace bls
 {
@@ -83,6 +84,7 @@ namespace bls
 				enemy->m_game = this;
 				m_scene->Add(std::move(enemy));
 			}
+
 			break;
 
 		case eState::Upgrading:

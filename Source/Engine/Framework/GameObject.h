@@ -14,10 +14,15 @@ namespace bls{
 			m_model{ model }
 		{}
 
+		GameObject(const bls::Transform& transform) :
+			m_transform{ transform }
+		{}
+
+
 		virtual void Update(float dt);
 		virtual void Draw(bls::Renderer& renderer);
 
-		float GetRadius() { return m_model->GetRadius() * m_transform.scale; }
+		float GetRadius() { return (m_model) ? m_model->GetRadius() * m_transform.scale : 0; }
 		virtual void OnCollision(GameObject* other) {}
 
 		class Scene* m_scene = nullptr;
