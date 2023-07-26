@@ -44,9 +44,9 @@ void Player::OnCollision(GameObject* object)
 
 	if (object->m_tag == "UnFriendly" && !object->m_destroyed && noHitTime <= 0)
 	{
-		noHitTime = 5;
+		noHitTime = 2;
 
-		m_game->SetLife(m_game->GetLife() - 5);
+		m_game->SetLife(-5);
 
 		if (m_game->GetLife() <= 0)
 		{
