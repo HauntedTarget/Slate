@@ -68,7 +68,7 @@ int main(int argc, char* argv[])
 	for (int i = 0; i < 1000; i++)
 	{
 		vec2 pos(random((float)bls::g_renderer.GetWidth()), random((float)bls::g_renderer.GetHeight()));
-		vec2 vel(randomf(0.05f, 0.5f), 0.0f);
+		vec2 vel(randomf(0.05f*2, 0.5f*2), 0.0f);
 
 		stars.push_back(Star(pos, vel));
 	}

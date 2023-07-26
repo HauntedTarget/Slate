@@ -23,9 +23,9 @@ void Enemy::Update(float dt)
 	if (m_fireTimer <= 0) 
 	{
 
-		m_fireTimer = bls::randomf(1.0f - (m_curGame->GetWave() * 0.001f), 2.0f - (m_curGame->GetWave() * 0.001f));
+		m_fireTimer = bls::randomf(1.0f - (m_curGame->GetWave() * 0.01f), 2.0f - (m_curGame->GetWave() * 0.01f));
 
-		if (m_fireTimer <= 0.001f) m_fireTimer = 0.001f;
+		if (m_fireTimer <= 0.01f) m_fireTimer = 0.01f;
 
 		//Create Weapon
 		bls::Transform transform{m_transform.position, m_transform.rotation, m_transform.scale * 0.5f};

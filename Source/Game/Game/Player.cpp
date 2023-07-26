@@ -12,7 +12,7 @@ void Player::Update(float dt)
 	noHitTime -= dt;
 
 	//Movement Values
-	float rotate = 0, scale = 10, thrust = 0;
+	float rotate = 0, scale = 10, thrust = 1;
 
 	//Controls
 		//Movement
@@ -36,7 +36,7 @@ void Player::Update(float dt)
 
 	m_transform.rotation += rotate * m_turnRate * dt;
 	m_transform.scale = scale;
-	m_transform.position += forword * thrust * m_speed * dt;
+	m_transform.position += forword * thrust * 1 * m_speed * dt;
 	m_transform.position.x = bls::Wrap(m_transform.position.x, (float)bls::g_renderer.GetWidth());
 	m_transform.position.y = bls::Wrap(m_transform.position.y, (float)bls::g_renderer.GetHeight());
 }

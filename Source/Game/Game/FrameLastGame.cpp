@@ -6,6 +6,7 @@
 #include "Enemy.h"
 #include "Player.h"
 #include <Framework/Emitter.h>
+#include "Renderer/ModelManager.h"
 
 namespace bls
 {
@@ -104,7 +105,8 @@ namespace bls
 			break;
 
 		case eState::Upgrading:
-			if (bls::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE))
+
+			if (bls::g_inputSystem.GetKeyDown(SDL_SCANCODE_RETURN))
 			{
 				m_fighting = true;
 				m_state = eState::ClearBuffer;
@@ -139,16 +141,24 @@ namespace bls
 		if (m_state == eState::Title) 
 		{
 			m_titleText->Create(g_renderer, "FrameLast", Color{ 0.5, 1, 0, 1 });
-			m_titleText->Draw(renderer, 400, 300);
+			m_titleText->Draw(renderer, renderer.GetHeight()/2 + 50, 300);
 		}
 		else if(m_state == eState::GameOver) {
 
 			m_titleText->Create(g_renderer, "GAME OVER", Color{ 0.5, 1, 0, 1 });
-			m_titleText->Draw(renderer, 400, 300);
+			m_titleText->Draw(renderer, renderer.GetHeight()/2 + 50, 300);
+		}
+		else if (m_state == eState::Upgrading) {
+
+			m_titleText->Create(g_renderer, "Wave Complete", Color{ 0.5, 1, 0, 1 });
+			m_titleText->Draw(renderer, renderer.GetHeight()/2 + 50, 300);
+			m_titleText->Create(g_renderer, "(Enter to Continue)", Color{ 0.5, 1, 0, 1 });
+			m_titleText->Draw(renderer, renderer.GetHeight()/2 + 50, 350);
+			//(Space to Continue)
 		}
 
 		if (m_state != eState::Title && m_state != eState::GameOver && m_state != eState::Upgrading) {
-			m_waveText->Draw(renderer, 40, 20);
+			m_waveText->Draw(renderer, 20, 20);
 		}
 		m_scene->Draw(renderer);
 
