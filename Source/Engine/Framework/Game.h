@@ -24,6 +24,8 @@ namespace bls
 		int GetLife() const { return m_life; }
 		void SetLife(int lifeGained) { m_life += lifeGained; }
 
+		int GetWave() const { return m_wave; }
+
 	protected:
 		std::unique_ptr<Scene> m_scene;
 

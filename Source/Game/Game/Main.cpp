@@ -57,7 +57,7 @@ int main(int argc, char* argv[])
 	setFilePath("assets");
 
 		//Create Game Window
-	g_renderer.CreateWindow("SlateEngine", 800, 600);
+	g_renderer.CreateWindow("Frame Last", 800, 600);
 
 		//Init Game
 	unique_ptr<FrameLastGame> game = make_unique<FrameLastGame>();
@@ -85,7 +85,11 @@ int main(int argc, char* argv[])
 			//Update Engine
 		g_time.Tick();
 
+			//Update Input
 		g_inputSystem.Update();
+
+			//Update Emitter
+		g_particleSystem.Update(g_time.GetDeltaTime());
 
 		if (g_inputSystem.GetKeyDown(SDL_SCANCODE_ESCAPE))
 		{
@@ -117,6 +121,7 @@ int main(int argc, char* argv[])
 
 			//Game Drawer
 		g_renderer.SetColor(255, 255, 255, 255);
+		g_particleSystem.Draw(g_renderer);
 		game->Draw(g_renderer);
 
 			//End of Frame

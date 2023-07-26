@@ -16,6 +16,8 @@ namespace bls
 		g_audioSystem.AddAudio("death", "explode.wav");
 		g_audioSystem.AddAudio("shoot", "lazer.wav");
 
+		g_audioSystem.AddAudio("music", "Bullet Hellz.wav");
+
 		// Init Font
 		m_font = std::make_shared<Font>("Arcade.ttf", 24);
 
@@ -49,24 +51,32 @@ namespace bls
 			break;
 
 		case eState::StartGame:
-			m_wave = 1;
+			m_wave = 0;
 			m_life = 100;
 			m_state = eState::StartLevel;
+			g_audioSystem.PlayOneShot("music", true);
 			break;
 
 		case eState::StartLevel:
 			m_scene->RemoveAll();
 		{
 			//Player Creation
-			std::unique_ptr<Player> player = std::make_unique<Player>(200.0f, (float)DegreesToRadians(180), Transform((400, 300), 0, 3), g_modelLib.Get("Player.txt"));
+			std::unique_ptr<Player> player = std::make_unique<Player>(100.0f, (float)DegreesToRadians(180), Transform(((g_renderer.GetHeight() / 2), (g_renderer.GetWidth() / 2)), 0, 3), g_modelLib.Get("Player.txt"));
 			player->m_tag = "Player";
 			player->m_game = this;
 			m_scene->Add(std::move(player));
 		}
-		m_waveSize = random(1, 5);
+		m_wave++;
+		m_waveSize = random(3 + m_wave, 7 + m_wave);
 		m_enemiesIn = 0;
+		m_enemiesKilled = 0;
 		m_state = eState::Game;
-		m_spawnTime = 3;
+		m_spawnTime = 2 - (0.001f * m_wave);
+		if (m_spawnTime <= 0) m_spawnTime = 0.001f;
+		if (m_life >= 100)
+		{
+			m_life = 100;
+		}
 			break;
 
 		case eState::Game:
@@ -79,18 +89,36 @@ namespace bls
 				//Wave Size Check
 				m_enemiesIn++;
 				//Spawn Enemy
-				std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(50.0f, (float)DegreesToRadians(180), Transform((random((float)g_renderer.GetWidth()), random((float)g_renderer.GetHeight())), randomf(360), 5), g_modelLib.Get("Enemy.txt"));
+				std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(50.0f, (float)DegreesToRadians(180), Transform((random((float)g_renderer.GetWidth()), random((float)g_renderer.GetHeight())), randomf(360), 5), g_modelLib.Get("Enemy.txt"), this);
 				enemy->m_tag = "Enemy";
 				enemy->m_game = this;
 				m_scene->Add(std::move(enemy));
 			}
 
+			//Detect Enemies Killed
+			if (m_enemiesKilled >= m_waveSize) {
+				m_fighting = false;
+				m_state = eState::ClearBuffer;
+			}
+
 			break;
 
 		case eState::Upgrading:
+			if (bls::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE))
+			{
+				m_fighting = true;
+				m_state = eState::ClearBuffer;
+			}
 			break;
 
 		case eState::ClearBuffer:
+			m_scene->RemoveAll();
+			if (m_fighting) {
+				m_state = eState::StartLevel;
+			}
+			else {
+				m_state = eState::Upgrading;
+			}
 			break;
 
 		case eState::GameOver:
@@ -119,7 +147,7 @@ namespace bls
 			m_titleText->Draw(renderer, 400, 300);
 		}
 
-		if (m_state != eState::Title && m_state != eState::GameOver) {
+		if (m_state != eState::Title && m_state != eState::GameOver && m_state != eState::Upgrading) {
 			m_waveText->Draw(renderer, 40, 20);
 		}
 		m_scene->Draw(renderer);

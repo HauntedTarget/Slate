@@ -32,6 +32,9 @@ namespace bls
 
 		void SetState(eState state) { m_state = state; }
 
+		int m_enemiesKilled = 0;
+		bool m_fighting = true;
+
 	private:
 		eState m_state = eState::Title;
 		float m_spawnTimer = 0, m_spawnTime = 0;
@@ -40,7 +43,6 @@ namespace bls
 		std::shared_ptr<Font> m_font;
 		std::unique_ptr<Text> m_waveText;
 		std::unique_ptr<Text> m_titleText;
-
 
 	};
 }

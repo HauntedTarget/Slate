@@ -2,7 +2,7 @@
 
 namespace bls
 {
-	ParticleSystem g_particleSystem;
+	ParticleSystem g_particleSystem(25);
 
 	void ParticleSystem::Update(float dt)
 	{

@@ -46,6 +46,8 @@ void Player::OnCollision(GameObject* object)
 
 	if (object->m_tag == "UnFriendly" && !object->m_destroyed && noHitTime <= 0)
 	{
+		object->m_destroyed = true;
+
 		noHitTime = 2;
 
 		m_game->SetLife(-5);
@@ -73,7 +75,5 @@ void Player::OnCollision(GameObject* object)
 
 			dynamic_cast<bls::FrameLastGame*>(m_game)->SetState(bls::FrameLastGame::eState::GameOver);
 		}
-
-		object->m_destroyed = true;
 	}
 }

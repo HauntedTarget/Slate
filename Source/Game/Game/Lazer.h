@@ -16,7 +16,7 @@ public:
 	{
 		//Play Weapon Fire
 		bls::g_audioSystem.PlayOneShot("shoot");
-		m_lifespan = 2.0f;
+		m_lifespan = 1.5f;
 	}
 	void Update(float dt) override;
 	void OnCollision(GameObject* object) override;

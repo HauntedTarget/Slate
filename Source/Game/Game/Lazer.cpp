@@ -2,8 +2,13 @@
 
 void Lazer::Update(float dt)
 {
+	m_lifespan -= dt;
 	if (m_transform.position.x < -25 || m_transform.position.x > bls::g_renderer.GetWidth() + 25 ||
 		m_transform.position.y < -25 || m_transform.position.y > bls::g_renderer.GetHeight() + 25)
+	{
+		m_destroyed = true;
+	}
+	if (m_lifespan <= 0)
 	{
 		m_destroyed = true;
 	}

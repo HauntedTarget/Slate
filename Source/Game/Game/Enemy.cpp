@@ -23,7 +23,9 @@ void Enemy::Update(float dt)
 	if (m_fireTimer <= 0) 
 	{
 
-		m_fireTimer = bls::randomf(2.0f,4.0f);
+		m_fireTimer = bls::randomf(1.0f - (m_curGame->GetWave() * 0.001f), 2.0f - (m_curGame->GetWave() * 0.001f));
+
+		if (m_fireTimer <= 0.001f) m_fireTimer = 0.001f;
 
 		//Create Weapon
 		bls::Transform transform{m_transform.position, m_transform.rotation, m_transform.scale * 0.5f};
@@ -61,6 +63,8 @@ void Enemy::OnCollision(GameObject* object)
 		auto emitter = std::make_unique<bls::Emitter>(transform, data);
 		emitter->m_lifespan = 1.0f;
 		m_scene->Add(std::move(emitter));
+
+		m_curGame->m_enemiesKilled++;
 
 		m_destroyed = true;
 	}
