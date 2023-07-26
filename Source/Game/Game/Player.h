@@ -18,6 +18,8 @@ public:
 	void Update(float dt) override;
 	void OnCollision(GameObject* object) override;
 
+	float noHitTime = 0;
+
 private:
 	float m_speed = 0, m_turnRate = 0;
 };

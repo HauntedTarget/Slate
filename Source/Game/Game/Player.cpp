@@ -6,6 +6,9 @@ void Player::Update(float dt)
 {
 	GameObject::Update(dt);
 
+	//Timer Ticker
+	noHitTime -= dt;
+
 	//Movement Values
 	float rotate = 0, scale = 10, thrust = 0;
 
@@ -38,10 +41,11 @@ void Player::Update(float dt)
 
 void Player::OnCollision(GameObject* object)
 {
-	//Player* p = dynamic_cast<Player>(other)
 
-	if (object->m_tag == "UnFriendly" && !object->m_destroyed)
+	if (object->m_tag == "UnFriendly" && !object->m_destroyed && noHitTime <= 0)
 	{
+		noHitTime = 5;
+
 		m_game->SetLife(m_game->GetLife() - 5);
 
 		if (m_game->GetLife() <= 0)

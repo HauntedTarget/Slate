@@ -1,4 +1,5 @@
 #include "Scene.h"
+#include "Audio/AudioSystem.h"
 
 namespace bls{
 
@@ -16,7 +17,12 @@ namespace bls{
 		{
 			(*iter)->Update(dt);
 
-			(iter->get()->m_destroyed) ? iter = m_GameObjects.erase(iter) : iter++;
+			if (iter->get()->m_destroyed)
+			{
+				if (iter->get()->m_tag == "Player" || iter->get()->m_tag == "Enemy") bls::g_audioSystem.PlayOneShot("death");
+				iter = m_GameObjects.erase(iter);
+			}
+			else iter++;
 		}
 
 		//Check Collisions

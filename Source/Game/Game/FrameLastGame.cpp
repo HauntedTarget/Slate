@@ -28,19 +28,6 @@ namespace bls
 		//Scene Init
 		m_scene = std::make_unique <bls::Scene>();
 
-		//Player Creation
-		
-
-		//Enemy Array Creation
-		/*vector<Enemy> enemies;
-		for (int i = 0; i < 5; i++)
-		{
-			std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(50.0f, (float)DegreesToRadians(180), Transform((random((float)g_renderer.GetWidth()), random((float)g_renderer.GetHeight())), randomf(360), 5), g_modelLib.Get("Enemy.txt"));
-			enemy->m_tag = "Enemy";
-			m_scene->Add(std::move(enemy));
-
-		}*/
-
 		return false;
 	}
 
@@ -69,6 +56,7 @@ namespace bls
 		case eState::StartLevel:
 			m_scene->RemoveAll();
 		{
+			//Player Creation
 			std::unique_ptr<Player> player = std::make_unique<Player>(200.0f, (float)DegreesToRadians(180), Transform((400, 300), 0, 3), g_modelLib.Get("Player.txt"));
 			player->m_tag = "Player";
 			player->m_game = this;
@@ -81,6 +69,7 @@ namespace bls
 			break;
 
 		case eState::Game:
+			//Timer Ticker
 			m_spawnTimer += dt;
 
 			if (m_spawnTimer > m_spawnTime && m_enemiesIn < m_waveSize) {
@@ -99,6 +88,9 @@ namespace bls
 		case eState::Upgrading:
 			break;
 
+		case eState::ClearBuffer:
+			break;
+
 		case eState::GameOver:
 			m_scene->RemoveAll();
 			break;
@@ -106,8 +98,8 @@ namespace bls
 		default:
 			break;
 		}
-
-		m_waveText->Create(g_renderer, "Wave: " + std::to_string(m_wave) + " Life: " + std::to_string(m_life), {1,1,1,1});
+		//Info Board Thing
+		m_waveText->Create(g_renderer, "Wave: " + std::to_string(m_wave) + " Life: " + std::to_string((int)m_life), {1,1,1,1});
 		m_scene->Update(dt);
 
 	}

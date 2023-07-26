@@ -113,16 +113,9 @@ int main(int argc, char* argv[])
 			g_renderer.DrawPoint(star.m_pos.x, star.m_pos.y);
 		}
 
-			//Player Drawer
+			//Game Drawer
 		g_renderer.SetColor(255, 255, 255, 255);
 		game->Draw(g_renderer);
-
-			//Enemy Drawer (Re-add With Varients)
-		//g_renderer.SetColor(255, 0, 0, 255);
-		//scene.Draw(g_renderer);
-
-			//Text Drawer\
-		text->Draw(g_renderer, 400, 300);
 
 			//End of Frame
 		g_renderer.EndFrame();

@@ -16,7 +16,7 @@ namespace bls
 			StartLevel = 2,
 			Game = 3,
 			Upgrading = 4,
-			PlayerDead = 5,
+			ClearBuffer = 5,
 			GameOver = 6
 		};
 
