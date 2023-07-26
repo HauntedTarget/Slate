@@ -1,6 +1,8 @@
 #include "Player.h"
 #include "FrameLastGame.h"
 #include "Renderer/ModelManager.h"
+#include <Framework/Emitter.h>
+#include "Input/InputSystem.h"
 
 void Player::Update(float dt)
 {
@@ -51,6 +53,24 @@ void Player::OnCollision(GameObject* object)
 		if (m_game->GetLife() <= 0)
 		{
 			m_destroyed = true;
+
+			bls::EmitterData data;
+			data.burst = true;
+			data.burstCount = 100;
+			data.spawnRate = 200;
+			data.angle = 0;
+			data.angleRange = bls::Pi;
+			data.lifetimeMin = 0.5f;
+			data.lifetimeMin = 1.5f;
+			data.speedMin = 50;
+			data.speedMax = 250;
+			data.damping = 0.5f;
+			data.color = bls::Color{ 1, 0, 0, 1 };
+			bls::Transform transform{ { this->m_transform.position }, 0, 1 };
+			auto emitter = std::make_unique<bls::Emitter>(transform, data);
+			emitter->m_lifespan = 1.0f;
+			m_scene->Add(std::move(emitter));
+
 			dynamic_cast<bls::FrameLastGame*>(m_game)->SetState(bls::FrameLastGame::eState::GameOver);
 		}
 

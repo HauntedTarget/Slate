@@ -5,6 +5,8 @@
 #include "Renderer/Renderer.h"
 #include "Core/Core.h"
 #include "Renderer/ModelManager.h"
+#include <Framework/Emitter.h>
+#include "Input/InputSystem.h"
 
 void Enemy::Update(float dt)
 {
@@ -43,6 +45,23 @@ void Enemy::OnCollision(GameObject* object)
 {
 	if (object->m_tag == "Friendly" && !object->m_destroyed)
 	{
+		bls::EmitterData data;
+		data.burst = true;
+		data.burstCount = 100;
+		data.spawnRate = 200;
+		data.angle = 0;
+		data.angleRange = bls::Pi;
+		data.lifetimeMin = 0.5f;
+		data.lifetimeMin = 1.5f;
+		data.speedMin = 50;
+		data.speedMax = 250;
+		data.damping = 0.5f;
+		data.color = bls::Color{ 1, 1, 1, 1 };
+		bls::Transform transform{ { this->m_transform.position }, 0, 1 };
+		auto emitter = std::make_unique<bls::Emitter>(transform, data);
+		emitter->m_lifespan = 1.0f;
+		m_scene->Add(std::move(emitter));
+
 		m_destroyed = true;
 	}
 }

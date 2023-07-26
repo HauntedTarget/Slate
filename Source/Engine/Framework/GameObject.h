@@ -36,9 +36,10 @@ namespace bls{
 
 		bool m_destroyed = false;
 
-	protected:
 		//Can be used as a range for lazers/bullets
 		float m_lifespan = -10.0f;
+
+	protected:
 
 		std::shared_ptr<Model> m_model;
 	};
