@@ -74,6 +74,7 @@ namespace bls
 		m_state = eState::Game;
 		m_spawnTime = 2 - (0.001f * m_wave);
 		if (m_spawnTime <= 0) m_spawnTime = 0.001f;
+		m_life += 5;
 		if (m_life >= 100)
 		{
 			m_life = 100;
