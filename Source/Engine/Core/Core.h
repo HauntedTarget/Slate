@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Logger.h"
 #include "Memory.h"
 #include "FileIO.h"
 #include "Time.h"

@@ -43,6 +43,10 @@ public:
 //Main Function
 int main(int argc, char* argv[])
 {
+		//Start of Game Info Log
+	INFO_LOG;
+
+		//MemTracker Init
 	MemoryTracker::Initialize();
 
 		//Sets "Random" Seed
