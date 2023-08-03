@@ -23,12 +23,15 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="ParticleSystem.h" />
+    <ClInclude Include="Resource\Resource.h" />
+    <ClInclude Include="Resource\ResourceManager.h" />
     <ClInclude Include="Scene.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Emitter.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
+    <ClCompile Include="Resource\ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

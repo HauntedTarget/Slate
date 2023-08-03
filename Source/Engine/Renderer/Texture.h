@@ -1,16 +1,24 @@
 #pragma once
 #include "Core/Vector2.h"
+#include "Framework/Resource/Resource.h"
+
 struct SDL_Texture;
 namespace bls
 {
-	class Texture
+	class Texture : public Resource
 	{
 	public:
 		Texture() = default;
 		~Texture();
-		bool Create(class Renderer& renderer, const std::string& filename);
+
+		bool Load(std::string filename, class Renderer& renderer);
 		vec2 GetSize();
+
+		// Inherited via Resource
+		virtual bool Create(std::string filename, ...) override;
+
 		friend class Renderer;
+
 	private:
 		SDL_Texture* m_texture = nullptr;
 	};

@@ -8,7 +8,7 @@ namespace bls
 	{
 		if (m_texture) SDL_DestroyTexture(m_texture);
 	}
-	bool Texture::Create(Renderer& renderer, const std::string& filename)
+	bool Texture::Load(std::string filename, class Renderer& renderer)
 	{
 		SDL_Surface* surface = IMG_Load(filename.c_str());
 		if (!surface)
@@ -30,7 +30,11 @@ namespace bls
 		// ASSERT texture is not null
 		SDL_Point point;
 		// https://wiki.libsdl.org/SDL2/SDL_QueryTexture
-		SDL_QueryTexture( m_texture, NULL, NULL, &point.x, &point.y);
+		SDL_QueryTexture(m_texture, NULL, NULL, &point.x, &point.y);
 		return vec2{ (float)point.x, (float)point.y };
+	}
+	bool Texture::Create(std::string filename, ...)
+	{
+		return false;
 	}
 }

@@ -18,6 +18,8 @@
 #include <thread>
 #include <vector>
 #include <cassert>
+#include <array>
+#include <map>
 
 	//Used Namespaces (Shave off little bits of code)
 using namespace bls;
@@ -42,11 +44,43 @@ public:
 	vec2 m_vel;
 };
 
+	//Helper function for containers
+template <typename T>
+void print(const std::string& s, const T& container)
+{
+	std::cout << s << std::endl;
+		for (auto element : container)
+		{
+			std::cout << element << " ";
+		}
+	std::cout << std::endl;
+}
+
 //Main Function
 int main(int argc, char* argv[])
 {
 		//Start of Game Info Log
 	INFO_LOG("Game Started");
+
+		//Things for the helper function
+	int n[4] = { 1, 2, 3, 4 };
+	print("array: ", n);
+
+	std::array<int, 4> na = { 1, 2, 3, 4 };
+	print("array class: ", na);
+
+	std::vector<int> nv = { 1, 2, 3, 4 };
+	print("vector: ", nv);
+
+	std::list<int> nl = {1, 2, 3, 4};
+	print("list:", nl);
+
+	std::map<string, int> nm;
+	nm["oga"] = 22;
+	nm["noa"] = 1;
+	nm["qua"] = 77;
+	nm["dea"] = 102842942;
+	cout << nm["oga"] << endl;
 
 		//MemTracker Init
 	MemoryTracker::Initialize();
@@ -73,7 +107,7 @@ int main(int argc, char* argv[])
 	vector<Star> stars;
 	for (int i = 0; i < 1000; i++)
 	{
-		vec2 pos(random((float)bls::g_renderer.GetWidth()), random((float)bls::g_renderer.GetHeight()));
+		vec2 pos((float)random((int)bls::g_renderer.GetWidth()), (float)random((int)bls::g_renderer.GetHeight()));
 		vec2 vel(randomf(0.05f*2, 0.5f*2), 0.0f);
 
 
@@ -81,8 +115,8 @@ int main(int argc, char* argv[])
 	}
 
 		// create texture
-	//shared_ptr<bls::Texture> texture = make_shared<bls::Texture>();
-	//texture->Create(g_renderer, "OneLostPage.png");
+	shared_ptr<bls::Texture> texture = make_shared<bls::Texture>();
+	texture->Load("Ship.png", g_renderer);
 
 		//Game Loop
 	bool quit = false;
@@ -113,7 +147,7 @@ int main(int argc, char* argv[])
 		g_renderer.BeginFrame();
 
 			//Draw Texture
-		//g_renderer.DrawTexture(texture.get(), 200.0f, 200.0f, 0.0f);
+		g_renderer.DrawTexture(texture.get(), 200.0f, 200.0f, 0.0f);
 
 			//Star Drawer
 		for (auto& star : stars)
