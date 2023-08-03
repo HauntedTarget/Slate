@@ -12,10 +12,12 @@
 #include "FrameLastGame.h"
 #include "Framework/Emitter.h"
 #include "Framework/Scene.h"
+#include "Renderer/Texture.h"
 	//Included Libs (Always needed)
 #include <iostream>
 #include <thread>
 #include <vector>
+#include <cassert>
 
 	//Used Namespaces (Shave off little bits of code)
 using namespace bls;
@@ -44,7 +46,7 @@ public:
 int main(int argc, char* argv[])
 {
 		//Start of Game Info Log
-	INFO_LOG;
+	INFO_LOG("Game Started");
 
 		//MemTracker Init
 	MemoryTracker::Initialize();
@@ -78,7 +80,9 @@ int main(int argc, char* argv[])
 		stars.push_back(Star(pos, vel));
 	}
 
-	
+		// create texture
+	//shared_ptr<bls::Texture> texture = make_shared<bls::Texture>();
+	//texture->Create(g_renderer, "OneLostPage.png");
 
 		//Game Loop
 	bool quit = false;
@@ -107,6 +111,9 @@ int main(int argc, char* argv[])
 			//Frame Init
 		g_renderer.SetColor(0, 0, 0, 255);
 		g_renderer.BeginFrame();
+
+			//Draw Texture
+		//g_renderer.DrawTexture(texture.get(), 200.0f, 200.0f, 0.0f);
 
 			//Star Drawer
 		for (auto& star : stars)

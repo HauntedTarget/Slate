@@ -6,10 +6,19 @@
 
 #include "FileIO.h"
 
-#define INFO_LOG { bls::g_logger.Log(bls::LogLevel::Info, __FILE__, __LINE__); }
-#define WARNING_LOG { bls::g_logger.Log(bls::LogLevel::Warning, __FILE__, __LINE__); }
-#define ERROR_LOG { bls::g_logger.Log(bls::LogLevel::Error, __FILE__, __LINE__); }
-#define ASSERT_LOG { bls::g_logger.Log(bls::LogLevel::Assert, __FILE__, __LINE__); }
+#ifdef _DEBUG
+#define INFO_LOG(message) { if(bls::g_logger.Log(bls::LogLevel::Info, __FILE__, __LINE__)) {bls::g_logger << message << "\n";} }
+#define WARNING_LOG(message) { if(bls::g_logger.Log(bls::LogLevel::Warning, __FILE__, __LINE__)) {bls::g_logger << message << "\n";} }
+#define ERROR_LOG(message) { if(bls::g_logger.Log(bls::LogLevel::Error, __FILE__, __LINE__)) {bls::g_logger << message << "\n";} }
+#define ASSERT_LOG(condition, message) { if(!condition && bls::g_logger.Log(bls::LogLevel::Assert, __FILE__, __LINE__)) {bls::g_logger << message << "\n";} assert(condition); }
+
+#else
+#define INFO_LOG(message)	{}
+#define WARNING_LOG(message)	{}
+#define ERROR_LOG(message)	{}
+#define ASSERT_LOG(condition, message)	{}
+
+#endif // _DEBUG
 
 namespace bls 
 {
@@ -26,12 +35,17 @@ namespace bls
 	{
 
 	public:
-		Logger(LogLevel logLevel, std::ostream* ostream) :
+		Logger(LogLevel logLevel, std::ostream* ostream, const std::string& filename = "") :
 			m_logLevel{ logLevel },
-			m_ostream{ ostream } 
-		{}
+			m_ostream{ ostream }
+		{
+			if (!filename.empty())m_fstream.open(filename);
+		}
 
 		bool Log(LogLevel logLevel, std::string filename, int line);
+
+		template<typename T>
+		Logger& operator << (T v);
 
 	private:
 		LogLevel m_logLevel;
@@ -41,4 +55,16 @@ namespace bls
 	};
 
 	extern Logger g_logger;
+	template<typename T>
+	inline Logger& Logger::operator<<(T v)
+	{
+		if (m_ostream) *m_ostream << v;
+		if (m_fstream.is_open()) 
+		{
+			m_fstream << v;
+			m_fstream.flush();
+		}
+
+		return *this;
+	}
 }

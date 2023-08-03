@@ -1,4 +1,5 @@
 #include "FileIO.h"
+#include <string>
 
 namespace bls
 {
@@ -37,8 +38,11 @@ namespace bls
 	{
 		if (!fileExists(path)) {
 
-			WARNING_LOG;
-			std::cout << "(404) File not found: " << path << std::endl;
+			//"(404) File not found: " + path + std::endl
+			
+			std::string mes = "(404) File not found: \n";
+
+			WARNING_LOG(mes);
 
 			return false;
 		}
