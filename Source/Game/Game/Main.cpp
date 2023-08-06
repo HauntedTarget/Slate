@@ -9,10 +9,11 @@
 #include "Enemy.h"
 #include "Renderer/Font.h"
 #include "Renderer/Text.h"
+#include "Renderer/Texture.h"
 #include "FrameLastGame.h"
 #include "Framework/Emitter.h"
 #include "Framework/Scene.h"
-#include "Renderer/Texture.h"
+#include "Framework/Resource/ResourceManager.h"
 	//Included Libs (Always needed)
 #include <iostream>
 #include <thread>
@@ -45,16 +46,16 @@ public:
 };
 
 	//Helper function for containers
-template <typename T>
-void print(const std::string& s, const T& container)
-{
-	std::cout << s << std::endl;
-		for (auto element : container)
-		{
-			std::cout << element << " ";
-		}
-	std::cout << std::endl;
-}
+//template <typename T>
+//void print(const std::string& s, const T& container)
+//{
+//	std::cout << s << std::endl;
+//		for (auto element : container)
+//		{
+//			std::cout << element << " ";
+//		}
+//	std::cout << std::endl;
+//}
 
 //Main Function
 int main(int argc, char* argv[])
@@ -63,7 +64,7 @@ int main(int argc, char* argv[])
 	INFO_LOG("Game Started");
 
 		//Things for the helper function
-	int n[4] = { 1, 2, 3, 4 };
+	/*int n[4] = { 1, 2, 3, 4 };
 	print("array: ", n);
 
 	std::array<int, 4> na = { 1, 2, 3, 4 };
@@ -73,14 +74,14 @@ int main(int argc, char* argv[])
 	print("vector: ", nv);
 
 	std::list<int> nl = {1, 2, 3, 4};
-	print("list:", nl);
+	print("list:", nl);*/
 
-	std::map<string, int> nm;
+	/*std::map<string, int> nm;
 	nm["oga"] = 22;
 	nm["noa"] = 1;
 	nm["qua"] = 77;
 	nm["dea"] = 102842942;
-	cout << nm["oga"] << endl;
+	cout << nm["oga"] << endl;*/
 
 		//MemTracker Init
 	MemoryTracker::Initialize();
@@ -115,8 +116,7 @@ int main(int argc, char* argv[])
 	}
 
 		// create texture
-	shared_ptr<bls::Texture> texture = make_shared<bls::Texture>();
-	texture->Load("Ship.png", g_renderer);
+	shatr<bls::Texture> texture = bls::g_resources.Get<bls::Texture>("Ship.png", bls::g_renderer);
 
 		//Game Loop
 	bool quit = false;

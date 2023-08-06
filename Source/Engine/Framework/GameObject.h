@@ -2,6 +2,7 @@
 #include "Core/Core.h"
 #include "Renderer/Model.h"
 #include "Core/Memory.h"
+#include "Framework/Components/Component.h"
 #include <memory>
 
 namespace bls{
@@ -22,6 +23,8 @@ namespace bls{
 		virtual void Update(float dt);
 		virtual void Draw(bls::Renderer& renderer);
 
+		void AddComponent(std::unique_ptr<Component> component);
+
 		float GetRadius() { return (m_model) ? m_model->GetRadius() * m_transform.scale : 0; }
 		virtual void OnCollision(GameObject* other) {}
 
@@ -40,6 +43,8 @@ namespace bls{
 		float m_lifespan = -10.0f;
 
 	protected:
+
+		std::vector<std::unique_ptr<Component>> m_components;
 
 		std::shared_ptr<Model> m_model;
 	};

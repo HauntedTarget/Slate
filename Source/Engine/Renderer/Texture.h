@@ -11,7 +11,7 @@ namespace bls
 		Texture() = default;
 		~Texture();
 
-		bool Load(std::string filename, class Renderer& renderer);
+		bool Load(const std::string& filename, class Renderer& renderer);
 		vec2 GetSize();
 
 		// Inherited via Resource

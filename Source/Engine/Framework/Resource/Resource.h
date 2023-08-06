@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <memory>
 
 namespace bls
 {
@@ -10,4 +11,7 @@ namespace bls
 
 		virtual bool Create(std::string filename, ...) = 0;
 	};
+
+	template<typename T>
+	using shatr = std::shared_ptr<T>;
 }

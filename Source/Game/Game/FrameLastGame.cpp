@@ -7,6 +7,8 @@
 #include "Player.h"
 #include <Framework/Emitter.h>
 #include "Renderer/ModelManager.h"
+#include "Framework/Resource/ResourceManager.h"
+#include "Framework/Components/SpriteComponent.h"
 
 namespace bls
 {
@@ -20,7 +22,7 @@ namespace bls
 		g_audioSystem.AddAudio("music", "Bullet Hellz.wav");
 
 		// Init Font
-		m_font = std::make_shared<Font>("Arcade.ttf", 24);
+		m_font = bls::g_resources.Get<bls::Font>("Arcade.ttf", 24);
 
 		//Create Text Object
 		m_titleText = std::make_unique<Text>(m_font);
@@ -65,6 +67,11 @@ namespace bls
 			std::unique_ptr<Player> player = std::make_unique<Player>(100.0f, (float)DegreesToRadians(180), Transform(((g_renderer.GetHeight() / 2), (g_renderer.GetWidth() / 2)), 0, 3), g_modelLib.Get("Player.txt"));
 			player->m_tag = "Player";
 			player->m_game = this;
+			//Player Components Init
+			std::unique_ptr<bls::SpriteComponent> component = std::make_unique<bls::SpriteComponent>();
+			component->m_texture = bls::g_resources.Get<bls::Texture>("Ship.png", bls::g_renderer);
+			player->AddComponent(std::move(component));
+
 			m_scene->Add(std::move(player));
 		}
 		m_wave++;
@@ -94,6 +101,11 @@ namespace bls
 				std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(50.0f, (float)DegreesToRadians(180), Transform((random((float)g_renderer.GetWidth()), random((float)g_renderer.GetHeight())), randomf(360), 5), g_modelLib.Get("Enemy.txt"), this);
 				enemy->m_tag = "Enemy";
 				enemy->m_game = this;
+				//Player Components Init
+				std::unique_ptr<bls::SpriteComponent> component = std::make_unique<bls::SpriteComponent>();
+				component->m_texture = bls::g_resources.Get<bls::Texture>("enemy.png", bls::g_renderer);
+				enemy->AddComponent(std::move(component));
+
 				m_scene->Add(std::move(enemy));
 			}
 
