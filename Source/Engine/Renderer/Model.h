@@ -1,11 +1,12 @@
 #pragma once
 #include "Core/Core.h"
 #include "Renderer.h"
+#include "Framework/Resource/Resource.h"
 #include <vector>
 
 namespace bls
 {
-	class Model 
+	class Model : public Resource
 	{
 	public:
 		Model() = default;
@@ -14,6 +15,7 @@ namespace bls
 		void Draw(Renderer& renderer, const vec2& position, float rotation, float scale);
 		void Draw(Renderer& renderer, const Transform& transform);
 
+		virtual bool Create(std::string filename, ...)override;
 		bool Load(const std::string& filename);
 
 		float GetRadius();

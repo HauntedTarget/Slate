@@ -22,9 +22,12 @@ namespace bls
 
 	void Model::Draw(Renderer& renderer, const Transform& transform)
 	{
-
-
 		Draw(renderer, transform.position, transform.rotation, transform.scale);
+	}
+
+	bool Model::Create(std::string filename, ...)
+	{
+		return Load(filename);
 	}
 
 	bool Model::Load(const std::string& filename)
