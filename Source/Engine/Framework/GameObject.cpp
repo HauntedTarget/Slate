@@ -10,6 +10,11 @@ namespace bls
 			m_lifespan -= dt;
 			m_destroyed = (m_lifespan <= 0);
 		}
+
+		for (auto& component : m_components)
+		{
+			component->Update(dt);
+		}
 	}
 
 	void GameObject::Draw(bls::Renderer& renderer)

@@ -1,8 +1,11 @@
 #include "Player.h"
 #include "FrameLastGame.h"
-#include "Renderer/ModelManager.h"
 #include <Framework/Emitter.h>
 #include "Input/InputSystem.h"
+#include "Framework/Components/SpriteComponent.h"
+#include "Framework/Resource/ResourceManager.h"
+#include "Renderer/Texture.h"
+#include "Framework/Components/EnginePhyComponents.h"
 
 void Player::Update(float dt)
 {
@@ -26,9 +29,15 @@ void Player::Update(float dt)
 	{
 		//Create Weapon
 		bls::Transform transform{m_transform.position, m_transform.rotation, m_transform.scale * 0.5f};
-		std::unique_ptr<Lazer> beam = std::make_unique<Lazer>( 400.0f, transform, bls::g_modelLib.Get("Lazer.txt"));
-		beam->m_tag = "Friendly";
-		m_scene->Add(std::move(beam));
+		std::unique_ptr<Lazer> p_beam = std::make_unique<Lazer>( 400.0f, transform);
+		p_beam->m_tag = "Friendly";
+
+		//Player Components Init
+		std::unique_ptr<bls::SpriteComponent> component = std::make_unique<bls::SpriteComponent>();
+		component->m_texture = bls::g_resources.Get<bls::Texture>("lazer.png", bls::g_renderer);
+		p_beam->AddComponent(std::move(component));
+
+		m_scene->Add(std::move(p_beam));
 	}
 
 	//Movement Updates
@@ -36,7 +45,10 @@ void Player::Update(float dt)
 
 	m_transform.rotation += rotate * m_turnRate * dt;
 	m_transform.scale = scale;
-	m_transform.position += forword * thrust * 1 * m_speed * dt;
+	//m_transform.position += forword * thrust * 1 * m_speed * dt;
+	auto physicsComponent = GetComponent < bls::PhysicsComponent > ();
+	physicsComponent->ApplyForce(forword * thrust * 1 * m_speed * dt);
+
 	m_transform.position.x = bls::Wrap(m_transform.position.x, (float)bls::g_renderer.GetWidth());
 	m_transform.position.y = bls::Wrap(m_transform.position.y, (float)bls::g_renderer.GetHeight());
 }

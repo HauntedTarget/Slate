@@ -10,8 +10,8 @@ class Lazer : public bls::GameObject
 {
 
 public:
-	Lazer(float speed, const bls::Transform& transfrom, std::shared_ptr<bls::Model> model) :
-		GameObject{ transfrom, model },
+	Lazer(float speed, const bls::Transform& transfrom) :
+		GameObject{ transfrom },
 		m_speed{ speed }
 	{
 		//Play Weapon Fire

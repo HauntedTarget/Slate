@@ -10,11 +10,6 @@ namespace bls{
 	{
 
 	public:
-		GameObject(const bls::Transform& transfrom, std::shared_ptr<Model> model) :
-			m_transform{ transfrom },
-			m_model{ model }
-		{}
-
 		GameObject(const bls::Transform& transform) :
 			m_transform{ transform }
 		{}
@@ -25,7 +20,10 @@ namespace bls{
 
 		void AddComponent(std::unique_ptr<Component> component);
 
-		float GetRadius() { return (m_model) ? m_model->GetRadius() * m_transform.scale : 0; }
+		template<typename T>
+		T* GetComponent();
+
+		float GetRadius() { return (30.0f); }
 		virtual void OnCollision(GameObject* other) {}
 
 		class Scene* m_scene = nullptr;
@@ -43,9 +41,19 @@ namespace bls{
 		float m_lifespan = -10.0f;
 
 	protected:
-
 		std::vector<std::unique_ptr<Component>> m_components;
 
-		std::shared_ptr<Model> m_model;
 	};
+
+	template<typename T>
+	inline T* GameObject::GetComponent()
+	{
+		for (auto& comp : m_components)
+		{
+			T* result = dynamic_cast<T*>(comp.get());
+			if (result) return result;
+		}
+
+		return nullptr;
+	}
 }

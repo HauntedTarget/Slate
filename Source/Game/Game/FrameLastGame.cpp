@@ -2,13 +2,12 @@
 #include "Renderer/Renderer.h"
 #include "Audio/AudioSystem.h"
 #include "Input/InputSystem.h"
-#include "Renderer/ModelManager.h"
 #include "Enemy.h"
 #include "Player.h"
 #include <Framework/Emitter.h>
-#include "Renderer/ModelManager.h"
 #include "Framework/Resource/ResourceManager.h"
 #include "Framework/Components/SpriteComponent.h"
+#include "Framework/Components/EnginePhyComponents.h"
 
 namespace bls
 {
@@ -64,13 +63,21 @@ namespace bls
 			m_scene->RemoveAll();
 		{
 			//Player Creation
-			std::unique_ptr<Player> player = std::make_unique<Player>(100.0f, (float)DegreesToRadians(180), Transform(((g_renderer.GetHeight() / 2), (g_renderer.GetWidth() / 2)), 0, 3), g_modelLib.Get("Player.txt"));
+			std::unique_ptr<Player> player = std::make_unique<Player>(100.0f, (float)DegreesToRadians(180), Transform(((g_renderer.GetHeight() / 2), (g_renderer.GetWidth() / 2)), 0, 3));
 			player->m_tag = "Player";
 			player->m_game = this;
-			//Player Components Init
-			std::unique_ptr<bls::SpriteComponent> component = std::make_unique<bls::SpriteComponent>();
-			component->m_texture = bls::g_resources.Get<bls::Texture>("Ship.png", bls::g_renderer);
-			player->AddComponent(std::move(component));
+
+			//Player Components Init:
+
+				//Render Component for Player
+			std::unique_ptr<bls::SpriteComponent> renderComponent = std::make_unique<bls::SpriteComponent>();
+			renderComponent->m_texture = bls::g_resources.Get<bls::Texture>("Ship.png", bls::g_renderer);
+			player->AddComponent(std::move(renderComponent));
+
+				//Physics Component for Player
+			auto phyComponent = std::make_unique<bls::EnginePhyComponents>();
+			phyComponent->m_damping = 0.8f;
+			player->AddComponent(std::move(phyComponent));
 
 			m_scene->Add(std::move(player));
 		}
@@ -98,7 +105,7 @@ namespace bls
 				//Wave Size Check
 				m_enemiesIn++;
 				//Spawn Enemy
-				std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(50.0f, (float)DegreesToRadians(180), Transform((random((float)g_renderer.GetWidth()), random((float)g_renderer.GetHeight())), randomf(360), 5), g_modelLib.Get("Enemy.txt"), this);
+				std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(50.0f, (float)DegreesToRadians(180), Transform((random((float)g_renderer.GetWidth()), random((float)g_renderer.GetHeight())), randomf(360), 5), this);
 				enemy->m_tag = "Enemy";
 				enemy->m_game = this;
 				//Player Components Init

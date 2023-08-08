@@ -1,5 +1,6 @@
 #pragma once
 #include "Renderer/Particle.h"
+#include <vector>
 
 namespace bls
 {

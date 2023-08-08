@@ -1,5 +1,5 @@
 #pragma once
-#include <Core/Color.h>
+#include <Core/Math/Color.h>
 #include "GameObject.h"
 #include <Renderer/Particle.h>
 #include "ParticleSystem.h"

@@ -80,10 +80,10 @@ namespace bls
 	{
 		vec2 size = texture->GetSize();
 			SDL_Rect dest;
-			dest.x = x;
-			dest.y = y;
-			dest.w = texture->GetSize().x;
-			dest.h = texture->GetSize().y;
+			dest.x = (int)(x - size.x * 0.5f);
+			dest.y = (int)(y - size.y * 0.5f);
+			dest.w = (int)texture->GetSize().x;
+			dest.h = (int)texture->GetSize().y;
 			// https://wiki.libsdl.org/SDL2/SDL_RenderCopyEx
 			SDL_RenderCopyEx(m_renderer, texture->m_texture, NULL, &dest, angle, NULL, SDL_FLIP_NONE);
 	}

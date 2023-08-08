@@ -1,19 +1,16 @@
 	//Included Files (Always needed)
 #include "Core/Core.h"
+#include "Framework/Framework.h"
+
 #include "Renderer/Renderer.h"
-#include "Renderer/ModelManager.h"
 #include "Input/InputSystem.h"
 #include "Audio/AudioSystem.h"
-#include "Framework/Scene.h"
 #include "Player.h"
 #include "Enemy.h"
 #include "Renderer/Font.h"
 #include "Renderer/Text.h"
 #include "Renderer/Texture.h"
 #include "FrameLastGame.h"
-#include "Framework/Emitter.h"
-#include "Framework/Scene.h"
-#include "Framework/Resource/ResourceManager.h"
 	//Included Libs (Always needed)
 #include <iostream>
 #include <thread>
@@ -45,43 +42,39 @@ public:
 	vec2 m_vel;
 };
 
-	//Helper function for containers
-//template <typename T>
-//void print(const std::string& s, const T& container)
+/*Variable pass ins*/
+//// does nothing (passing in just the value) (creates seperate memory)
+//void zero(int v)
 //{
-//	std::cout << s << std::endl;
-//		for (auto element : container)
-//		{
-//			std::cout << element << " ";
-//		}
-//	std::cout << std::endl;
+//	v = 0;
+//}
+//
+//// changes value (passing in a pointer reference)
+//void zero(int* v)
+//{
+//	*v = 0;
+//}
+//
+//// changes value (passing in the variable as a reference) (cannot pass in straight values unless using const)
+//void zero_ref(int& v)
+//{
+//	v = 0;
 //}
 
 //Main Function
 int main(int argc, char* argv[])
 {
+	/*Variable pass ins*/
+	//int i = 5;
+	//zero(i); // <- does nothing (passing in just the value)
+	//
+	//zero(&i); // <- changes i's value (passing in a pointer reference)
+	//
+	//zero_ref(i); // <- changes i's value (passing in the variable as a reference)
+	
+
 		//Start of Game Info Log
 	INFO_LOG("Game Started");
-
-		//Things for the helper function
-	/*int n[4] = { 1, 2, 3, 4 };
-	print("array: ", n);
-
-	std::array<int, 4> na = { 1, 2, 3, 4 };
-	print("array class: ", na);
-
-	std::vector<int> nv = { 1, 2, 3, 4 };
-	print("vector: ", nv);
-
-	std::list<int> nl = {1, 2, 3, 4};
-	print("list:", nl);*/
-
-	/*std::map<string, int> nm;
-	nm["oga"] = 22;
-	nm["noa"] = 1;
-	nm["qua"] = 77;
-	nm["dea"] = 102842942;
-	cout << nm["oga"] << endl;*/
 
 		//MemTracker Init
 	MemoryTracker::Initialize();
@@ -116,7 +109,7 @@ int main(int argc, char* argv[])
 	}
 
 		// create texture
-	shatr<bls::Texture> texture = bls::g_resources.Get<bls::Texture>("Ship.png", bls::g_renderer);
+	//shatr<bls::Texture> texture = bls::g_resources.Get<bls::Texture>("Ship.png", bls::g_renderer);
 
 		//Game Loop
 	bool quit = false;
@@ -147,7 +140,7 @@ int main(int argc, char* argv[])
 		g_renderer.BeginFrame();
 
 			//Draw Texture
-		g_renderer.DrawTexture(texture.get(), 200.0f, 200.0f, 0.0f);
+		//g_renderer.DrawTexture(texture.get(), 200.0f, 200.0f, 0.0f);
 
 			//Star Drawer
 		for (auto& star : stars)

@@ -11,8 +11,8 @@ class Enemy : public bls::GameObject
 {
 
 public:
-	Enemy(float speed, float turnRate, const bls::Transform& transfrom, std::shared_ptr<bls::Model> model, bls::FrameLastGame* curGame) :
-		GameObject{ transfrom, model },
+	Enemy(float speed, float turnRate, const bls::Transform& transfrom, bls::FrameLastGame* curGame) :
+		GameObject{ transfrom },
 		m_speed{ speed },
 		m_turnRate{ turnRate },
 		m_curGame { curGame }

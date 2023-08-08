@@ -10,8 +10,8 @@ class Player : public bls::GameObject
 {
 
 public:
-	Player(float speed, float turnRate, const bls::Transform& transfrom, std::shared_ptr<bls::Model> model) :
-		GameObject{ transfrom, model }, 
+	Player(float speed, float turnRate, const bls::Transform& transfrom) :
+		GameObject{ transfrom }, 
 		m_speed{speed},
 		m_turnRate{turnRate}
 	{}

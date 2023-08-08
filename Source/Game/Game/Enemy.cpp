@@ -4,9 +4,11 @@
 #include "Game/Lazer.h"
 #include "Renderer/Renderer.h"
 #include "Core/Core.h"
-#include "Renderer/ModelManager.h"
 #include <Framework/Emitter.h>
 #include "Input/InputSystem.h"
+#include "Framework/Components/SpriteComponent.h"
+#include "Framework/Resource/ResourceManager.h"
+#include "Renderer/Texture.h"
 
 void Enemy::Update(float dt)
 {
@@ -29,10 +31,17 @@ void Enemy::Update(float dt)
 
 		//Create Weapon
 		bls::Transform transform{m_transform.position, m_transform.rotation, m_transform.scale * 0.5f};
+		std::unique_ptr<Lazer> e_beam = std::make_unique<Lazer>(400.0f, transform);
+		e_beam->m_tag = "UnFriendly";
 
-		std::unique_ptr<Lazer> beam = std::make_unique<Lazer>(400.0f, transform, bls::g_modelLib.Get("Lazer.txt"));
-		beam->m_tag = "UnFriendly";
-		m_scene->Add(std::move(beam));
+		//Player Components Init
+		std::unique_ptr<bls::SpriteComponent> component = std::make_unique<bls::SpriteComponent>();
+		component->m_texture = bls::g_resources.Get<bls::Texture>("lazer.png", bls::g_renderer);
+		e_beam->AddComponent(std::move(component));
+
+		m_scene->Add(std::move(e_beam));
+
+
 
 	}
 
