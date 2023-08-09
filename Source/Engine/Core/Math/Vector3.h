@@ -16,6 +16,11 @@ namespace bls
 		Vector3(float v) : x{ v }, y{ v }, z{ v } {}
 		Vector3(float x, float y, float z) : x{ x }, y{ y }, z{ z } {}
 
+		float operator [] (size_t index) const { return (&x)[index]; }
+		float& operator [] (size_t index) { return (&x)[index]; }
+
+		Vector3 operator - () const { return Vector3(-x, -y, -z); }
+
 		Vector3 operator + (const Vector3& v) const { return Vector3(x + v.x, y + v.y, z + v.z); }
 		Vector3 operator - (const Vector3& v) const { return Vector3(x - v.x, y - v.y, z - v.z); }
 		Vector3 operator / (const Vector3& v) const { return Vector3(x / v.x, y / v.y, z / v.z); }

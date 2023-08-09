@@ -1,5 +1,6 @@
 #pragma once
 #include "Vector2.h"
+#include "MatrixBy2.h"
 
 namespace bls
 {
@@ -18,5 +19,12 @@ namespace bls
 			scale{ scale }
 		{}
 
+		mat2 GetMatrix() const
+		{
+			mat2 ms = mat2::CreateScale(scale);
+			mat2 mr = mat2::CreateRotation(rotation);
+
+			return ms * mr;
+		}
 	};
 }
