@@ -8,6 +8,7 @@
 #include "Framework/Resource/ResourceManager.h"
 #include "Framework/Components/SpriteComponent.h"
 #include "Framework/Components/EnginePhyComponents.h"
+#include "Framework/Components/ModelRenderComponent.h"
 
 namespace bls
 {
@@ -70,8 +71,8 @@ namespace bls
 			//Player Components Init:
 
 				//Render Component for Player
-			std::unique_ptr<bls::SpriteComponent> renderComponent = std::make_unique<bls::SpriteComponent>();
-			renderComponent->m_texture = bls::g_resources.Get<bls::Texture>("Ship.png", bls::g_renderer);
+			std::unique_ptr<bls::ModelRenderComponent> renderComponent = std::make_unique<bls::ModelRenderComponent>();
+			renderComponent->m_model = bls::g_resources.Get<bls::Model>("player.txt", bls::g_renderer);
 			player->AddComponent(std::move(renderComponent));
 
 				//Physics Component for Player
