@@ -1,4 +1,5 @@
 #include "ModelRenderComponent.h"
+#include "Framework/GameObject.h"
 
 namespace bls{
 
@@ -9,6 +10,6 @@ namespace bls{
 
 	void ModelRenderComponent::Draw(Renderer& renderer)
 	{
-		//m_model->Draw(renderer, m_owner->transform);
+		m_model->Draw(renderer, m_owner->m_transform);
 	}
 }

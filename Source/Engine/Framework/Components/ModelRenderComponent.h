@@ -12,7 +12,7 @@ namespace bls {
 		void Draw(class Renderer& renderer) override;
 
 	public:
-		shatr<Texture> m_texture;
+		shatr<Model> m_model;
 
 	};
 }
