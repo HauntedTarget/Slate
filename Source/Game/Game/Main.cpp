@@ -1,9 +1,7 @@
-	//Included Files (Always needed)\
-.Collections
+	//Included Files (Always needed)
 #include "Core/Core.h"
 #include "Framework/Framework.h"
-	//Included Files (Always needed)\
-.Single Files
+	//Included Files (Always needed)
 #include "Renderer/Renderer.h"
 #include "Input/InputSystem.h"
 #include "Audio/AudioSystem.h"
@@ -13,8 +11,7 @@
 #include "Renderer/Text.h"
 #include "Renderer/Texture.h"
 #include "FrameLastGame.h"
-	//Included Libs (Always needed)\
-.Libraries
+	//Included Libs (Always needed)
 #include <iostream>
 #include <thread>
 #include <vector>

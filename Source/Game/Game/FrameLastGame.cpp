@@ -64,15 +64,15 @@ namespace bls
 			m_scene->RemoveAll();
 		{
 			//Player Creation
-			std::unique_ptr<Player> player = std::make_unique<Player>(100.0f, (float)DegreesToRadians(180), Transform(((g_renderer.GetHeight() / 2), (g_renderer.GetWidth() / 2)), 0, 3));
+			std::unique_ptr<Player> player = std::make_unique<Player>(100.0f, (float)DegreesToRadians(180), Transform(((g_renderer.GetHeight() / 2), (g_renderer.GetWidth() / 2)), 0, 1));
 			player->m_tag = "Player";
 			player->m_game = this;
 
 			//Player Components Init:
 
 				//Render Component for Player
-			std::unique_ptr<bls::ModelRenderComponent> renderComponent = std::make_unique<bls::ModelRenderComponent>();
-			renderComponent->m_model = bls::g_resources.Get<bls::Model>("player.txt", bls::g_renderer);
+			std::unique_ptr<bls::SpriteComponent> renderComponent = std::make_unique<bls::SpriteComponent>();
+			renderComponent->m_texture = bls::g_resources.Get<bls::Texture>("Ship.png", bls::g_renderer);
 			player->AddComponent(std::move(renderComponent));
 
 				//Physics Component for Player
@@ -106,7 +106,7 @@ namespace bls
 				//Wave Size Check
 				m_enemiesIn++;
 				//Spawn Enemy
-				std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(50.0f, (float)DegreesToRadians(180), Transform((random((float)g_renderer.GetWidth()), random((float)g_renderer.GetHeight())), randomf(360), 5), this);
+				std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(50.0f, (float)DegreesToRadians(180), Transform((random((float)g_renderer.GetWidth()), random((float)g_renderer.GetHeight())), randomf(360), 1), this);
 				enemy->m_tag = "Enemy";
 				enemy->m_game = this;
 				//Player Components Init

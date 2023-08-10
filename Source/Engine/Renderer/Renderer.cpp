@@ -84,7 +84,25 @@ namespace bls
 			dest.y = (int)(y - size.y * 0.5f);
 			dest.w = (int)texture->GetSize().x;
 			dest.h = (int)texture->GetSize().y;
-			// https://wiki.libsdl.org/SDL2/SDL_RenderCopyEx
+
 			SDL_RenderCopyEx(m_renderer, texture->m_texture, NULL, &dest, angle, NULL, SDL_FLIP_NONE);
+	}
+
+	void Renderer::DrawTexture(Texture* texture, const Transform& transform)
+	{
+		mat3 mx = transform.GetMatrix();
+
+		vec2 position = mx.GetTranslation();
+		vec2 scale = mx.GetScale();
+		vec2 s = texture->GetSize();
+		vec2 size = scale * s;
+
+		SDL_Rect dest;
+		dest.x = (int)(position.x - size.x * 0.5f);
+		dest.y = (int)(position.y - size.y * 0.5f);
+		dest.w = (int)size.x;
+		dest.h = (int)size.y;
+
+		SDL_RenderCopyEx(m_renderer, texture->m_texture, NULL, &dest, RadiansToDegrees(mx.GetRotation()), NULL, SDL_FLIP_NONE);
 	}
 }

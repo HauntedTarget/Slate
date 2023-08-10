@@ -15,7 +15,7 @@ void Player::Update(float dt)
 	noHitTime -= dt;
 
 	//Movement Values
-	float rotate = 0, scale = 10, thrust = 1;
+	float rotate = 0, thrust = 1;
 
 	//Controls
 		//Movement
@@ -44,7 +44,6 @@ void Player::Update(float dt)
 	bls::vec2 forword = bls::vec2{ 0,-1 }.Rotate(m_transform.rotation);
 
 	m_transform.rotation += rotate * m_turnRate * dt;
-	m_transform.scale = scale;
 	//m_transform.position += forword * thrust * 1 * m_speed * dt;
 	auto physicsComponent = GetComponent < bls::PhysicsComponent > ();
 	physicsComponent->ApplyForce(forword * thrust * 1 * m_speed * dt);
