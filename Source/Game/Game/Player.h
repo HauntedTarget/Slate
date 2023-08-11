@@ -5,6 +5,7 @@
 #include "Input/InputSystem.h"
 #include "Renderer/Renderer.h"
 #include "Audio/AudioSystem.h"
+#include "Framework/Components/PhysicsComponent.h"
 
 class Player : public bls::GameObject
 {
@@ -15,6 +16,8 @@ public:
 		m_speed{speed},
 		m_turnRate{turnRate}
 	{}
+
+	bool Initialize() override;
 	void Update(float dt) override;
 	void OnCollision(GameObject* object) override;
 
@@ -22,4 +25,6 @@ public:
 
 private:
 	float m_speed = 0, m_turnRate = 0;
+
+	bls::PhysicsComponent* m_physicsComponent = nullptr;
 };

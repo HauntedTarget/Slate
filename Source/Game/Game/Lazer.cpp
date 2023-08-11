@@ -1,4 +1,23 @@
 #include "Lazer.h"
+#include "Framework/Framework.h"
+
+bool Lazer::Initialize()
+{
+	GameObject::Initialize();
+
+	auto collisionComponent = GetComponent<bls::CollisionComponent>();
+	if (collisionComponent)
+	{
+		auto renderComponent = GetComponent<bls::RenderComponent>();
+		if (renderComponent)
+		{
+			float scale = m_transform.scale;
+			collisionComponent->m_radius = GetComponent<bls::RenderComponent>()->GetRadius() * scale;
+		}
+	}
+
+	return true;
+}
 
 void Lazer::Update(float dt)
 {

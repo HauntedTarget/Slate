@@ -1,19 +1,21 @@
 #pragma once
 #include "Core/Core.h"
 #include "Renderer/Model.h"
-#include "Core/Memory.h"
 #include "Framework/Components/Component.h"
+#include "Framework/Object.h"
 #include <memory>
 
 namespace bls{
-	class GameObject
+	class GameObject : public Object
 	{
-
 	public:
+		GameObject() = default;
 		GameObject(const bls::Transform& transform) :
 			m_transform{ transform }
 		{}
 
+		virtual bool Initialize() override;
+		virtual void OnDestroy() override;
 
 		virtual void Update(float dt);
 		virtual void Draw(bls::Renderer& renderer);

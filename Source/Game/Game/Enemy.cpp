@@ -1,14 +1,29 @@
 #include "Enemy.h"
-#include "Framework/Scene.h"
+#include "Framework/Framework.h"
 #include "Game/Player.h"
 #include "Game/Lazer.h"
 #include "Renderer/Renderer.h"
 #include "Core/Core.h"
-#include <Framework/Emitter.h>
 #include "Input/InputSystem.h"
-#include "Framework/Components/SpriteComponent.h"
-#include "Framework/Resource/ResourceManager.h"
 #include "Renderer/Texture.h"
+
+bool Enemy::Initialize()
+{
+	GameObject::Initialize();
+
+	auto collisionComponent = GetComponent<bls::CollisionComponent>();
+	if (collisionComponent)
+	{
+		auto renderComponent = GetComponent<bls::RenderComponent>();
+		if (renderComponent)
+		{
+			float scale = m_transform.scale;
+			collisionComponent->m_radius = GetComponent<bls::RenderComponent>()->GetRadius() * scale;
+		}
+	}
+
+	return true;
+}
 
 void Enemy::Update(float dt)
 {
@@ -34,11 +49,17 @@ void Enemy::Update(float dt)
 		std::unique_ptr<Lazer> e_beam = std::make_unique<Lazer>(400.0f, transform);
 		e_beam->m_tag = "UnFriendly";
 
-		//Player Components Init
+		//Lazer Components Init
 		std::unique_ptr<bls::SpriteComponent> component = std::make_unique<bls::SpriteComponent>();
 		component->m_texture = bls::g_resources.Get<bls::Texture>("lazer.png", bls::g_renderer);
 		e_beam->AddComponent(std::move(component));
 
+		//Collision Component for Lazer
+		auto collisionComponent = std::make_unique<bls::CircleCollisionComponent>();
+		collisionComponent->m_radius = 30.0f;
+		e_beam->AddComponent(std::move(collisionComponent));
+
+		e_beam->Initialize();
 		m_scene->Add(std::move(e_beam));
 
 

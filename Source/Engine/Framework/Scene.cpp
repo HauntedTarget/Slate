@@ -1,15 +1,11 @@
 #include "Scene.h"
 #include "Audio/AudioSystem.h"
+#include "Components/CollisionComponent.h"
 
 namespace bls{
 
 	void Scene::Update(float dt)
 	{
-		/*for (auto& gameObjects : m_GameObjects)
-		{
-			gameObjects->Update(dt);
-		}*/
-
 		// Update and Remove Destroyed
 		auto iter = m_GameObjects.begin();
 
@@ -32,10 +28,14 @@ namespace bls{
 			for (auto iter2 = std::next(iter1, 1); iter2 != m_GameObjects.end(); iter2++)
 			{
 
-				float distance = (*iter1)->m_transform.position.Distance((*iter2)->m_transform.position);
-				float combineRadius = (*iter1)->GetRadius() + (*iter2)->GetRadius();
+				CollisionComponent* collision1 = (*iter1)->GetComponent<CollisionComponent>();
+				CollisionComponent* collision2 = (*iter2)->GetComponent<CollisionComponent>();
 
-				if (distance <= combineRadius) 
+				if (!collision1 || !collision2) {
+					continue;
+				}
+
+				if (collision1->CheckCollision(collision2)) 
 				{
 					//OnCollision Caller
 					(*iter1)->OnCollision(iter2->get());

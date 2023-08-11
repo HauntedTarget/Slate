@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Components\CircleCollisionComponent.h" />
+    <ClInclude Include="Components\CollisionComponent.h" />
     <ClInclude Include="Components\Component.h" />
     <ClInclude Include="Components\EnginePhyComponents.h" />
     <ClInclude Include="Components\ModelRenderComponent.h" />
@@ -29,12 +31,14 @@
     <ClInclude Include="Framework.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Object.h" />
     <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="Resource\Resource.h" />
     <ClInclude Include="Resource\ResourceManager.h" />
     <ClInclude Include="Scene.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Components\CircleCollisionComponent.cpp" />
     <ClCompile Include="Components\EnginePhyComponents.cpp" />
     <ClCompile Include="Components\ModelRenderComponent.cpp" />
     <ClCompile Include="Components\SpriteComponent.cpp" />

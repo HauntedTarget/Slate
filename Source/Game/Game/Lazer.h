@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Framework/GameObject.h"
 #include "Audio/AudioSystem.h"
 #include "Framework/Scene.h"
@@ -18,6 +17,9 @@ public:
 		bls::g_audioSystem.PlayOneShot("shoot");
 		m_lifespan = 1.5f;
 	}
+
+	bool Initialize();
+
 	void Update(float dt) override;
 	void OnCollision(GameObject* object) override;
 

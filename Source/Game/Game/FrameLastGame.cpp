@@ -9,6 +9,7 @@
 #include "Framework/Components/SpriteComponent.h"
 #include "Framework/Components/EnginePhyComponents.h"
 #include "Framework/Components/ModelRenderComponent.h"
+#include "Framework/Components/CircleCollisionComponent.h"
 
 namespace bls
 {
@@ -80,6 +81,12 @@ namespace bls
 			phyComponent->m_damping = 0.8f;
 			player->AddComponent(std::move(phyComponent));
 
+				//Collision Component for Player
+			auto collisionComponent = std::make_unique<bls::CircleCollisionComponent>();
+			collisionComponent->m_radius = 30.0f;
+			player->AddComponent(std::move(collisionComponent));
+
+			player->Initialize();
 			m_scene->Add(std::move(player));
 		}
 		m_wave++;
@@ -109,10 +116,15 @@ namespace bls
 				std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(50.0f, (float)DegreesToRadians(180), Transform((random((float)g_renderer.GetWidth()), random((float)g_renderer.GetHeight())), randomf(360), 1), this);
 				enemy->m_tag = "Enemy";
 				enemy->m_game = this;
-				//Player Components Init
+				//Enemy Components Init
 				std::unique_ptr<bls::SpriteComponent> component = std::make_unique<bls::SpriteComponent>();
 				component->m_texture = bls::g_resources.Get<bls::Texture>("enemy.png", bls::g_renderer);
 				enemy->AddComponent(std::move(component));
+
+				//Collision Component for Enemy
+				auto collisionComponent = std::make_unique<bls::CircleCollisionComponent>();
+				collisionComponent->m_radius = 30.0f;
+				enemy->AddComponent(std::move(collisionComponent));
 
 				m_scene->Add(std::move(enemy));
 			}

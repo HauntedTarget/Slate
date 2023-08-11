@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Object.h"
 #include "Scene.h"
 #include "ParticleSystem.h"
 #include "GameObject.h"
@@ -15,3 +16,5 @@
 #include "Components/ModelRenderComponent.h"
 #include "Components/PhysicsComponent.h"
 #include "Components/RenderComponent.h"
+#include "Components/CollisionComponent.h"
+#include "Components/CircleCollisionComponent.h"

@@ -2,10 +2,27 @@
 #include "FrameLastGame.h"
 #include <Framework/Emitter.h>
 #include "Input/InputSystem.h"
-#include "Framework/Components/SpriteComponent.h"
-#include "Framework/Resource/ResourceManager.h"
-#include "Renderer/Texture.h"
-#include "Framework/Components/EnginePhyComponents.h"
+#include "Framework/Framework.h"
+
+bool Player::Initialize()
+{
+	GameObject::Initialize();
+
+	//cache off
+	m_physicsComponent = GetComponent<bls::PhysicsComponent>();
+	auto collisionComponent = GetComponent<bls::CollisionComponent>();
+	if (collisionComponent)
+	{
+		auto renderComponent = GetComponent<bls::RenderComponent>();
+		if (renderComponent)
+		{
+			float scale = m_transform.scale;
+			collisionComponent->m_radius = GetComponent<bls::RenderComponent>()->GetRadius() * scale;
+		}
+	}
+
+	return true;
+}
 
 void Player::Update(float dt)
 {
@@ -32,11 +49,17 @@ void Player::Update(float dt)
 		std::unique_ptr<Lazer> p_beam = std::make_unique<Lazer>( 400.0f, transform);
 		p_beam->m_tag = "Friendly";
 
-		//Player Components Init
+		//Lazer Components Init
 		std::unique_ptr<bls::SpriteComponent> component = std::make_unique<bls::SpriteComponent>();
 		component->m_texture = bls::g_resources.Get<bls::Texture>("lazer.png", bls::g_renderer);
 		p_beam->AddComponent(std::move(component));
 
+		//Collision Component for Lazer
+		auto collisionComponent = std::make_unique<bls::CircleCollisionComponent>();
+		collisionComponent->m_radius = 30.0f;
+		p_beam->AddComponent(std::move(collisionComponent));
+
+		p_beam->Initialize();
 		m_scene->Add(std::move(p_beam));
 	}
 
@@ -45,8 +68,7 @@ void Player::Update(float dt)
 
 	m_transform.rotation += rotate * m_turnRate * dt;
 	//m_transform.position += forword * thrust * 1 * m_speed * dt;
-	auto physicsComponent = GetComponent < bls::PhysicsComponent > ();
-	physicsComponent->ApplyForce(forword * thrust * 1 * m_speed * dt);
+	m_physicsComponent->ApplyForce(forword * thrust * 1 * m_speed * dt);
 
 	m_transform.position.x = bls::Wrap(m_transform.position.x, (float)bls::g_renderer.GetWidth());
 	m_transform.position.y = bls::Wrap(m_transform.position.y, (float)bls::g_renderer.GetHeight());

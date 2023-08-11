@@ -19,6 +19,9 @@ public:
 	{
 		m_fireTimer = bls::randomf(2.0f, 4.0f);
 	}
+
+	bool Initialize();
+
 	void Update(float dt) override;
 	void OnCollision(GameObject* object) override;
 
