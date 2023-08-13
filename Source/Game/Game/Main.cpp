@@ -64,6 +64,24 @@ public:
 //Main Function
 int main(int argc, char* argv[])
 {
+	MemoryTracker::Initialize();
+	seedRandom((unsigned int)time(nullptr));
+	setFilePath("assets");
+	rapidjson::Document document;
+	Json::Load("json.txt", document);
+	int i1;
+	Json::Read(document, "integer1", i1);
+	cout << i1 << endl;
+	int i2;
+	Json::Read(document, "integer2", i2);
+	cout << i2 << endl;
+	int i3;
+	Json::Read(document, "AHHHHHHH", i3);
+	cout << i3 << endl;
+	int i4;
+	Json::Read(document, "Whyyyyyy", i4);
+	cout << i4 << endl;
+
 	/*Variable pass ins*/
 	//int i = 5;
 	//zero(i); // <- does nothing (passing in just the value)

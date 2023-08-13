@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Logger.h"
+#include "Json.h"
 #include "Memory.h"
 #include "FileIO.h"
 #include "Time.h"
