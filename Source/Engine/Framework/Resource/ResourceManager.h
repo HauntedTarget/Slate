@@ -1,12 +1,15 @@
 #pragma once
 #include "Resource.h"
+#include "Framework/Singleton.h"
 #include <map>
 #include <memory>
 #include <string>
 
+#define GET_RESOURCE(type, filename, ...) bls::ResourceManager::Instance().Get<type>(filename, __VA_ARGS__);
+
 namespace bls
 {
-	class ResouceManager
+	class ResourceManager : public Singleton<ResourceManager>
 	{
 	public:
 		template<typename T, typename ... TArgs>
@@ -17,7 +20,7 @@ namespace bls
 	};
 
 	template<typename T, typename ... TArgs>
-	inline shatr<T> ResouceManager::Get(const std::string& filename, TArgs ... args)
+	inline shatr<T> ResourceManager::Get(const std::string& filename, TArgs ... args)
 	{
 		if (m_resources.find(filename) != m_resources.end()) {
 			return std::dynamic_pointer_cast<T>(m_resources[filename]);
@@ -31,5 +34,5 @@ namespace bls
 		return resource;
 	}
 
-	extern ResouceManager g_resources;
+	extern ResourceManager g_resources;
 }

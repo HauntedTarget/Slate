@@ -42,29 +42,11 @@ public:
 	vec2 m_vel;
 };
 
-/*Variable pass ins*/
-//// does nothing (passing in just the value) (creates seperate memory)
-//void zero(int v)
-//{
-//	v = 0;
-//}
-//
-//// changes value (passing in a pointer reference)
-//void zero(int* v)
-//{
-//	*v = 0;
-//}
-//
-//// changes value (passing in the variable as a reference) (cannot pass in straight values unless using const)
-//void zero_ref(int& v)
-//{
-//	v = 0;
-//}
-
 //Main Function
 int main(int argc, char* argv[])
 {
-	MemoryTracker::Initialize();
+	/*Testing Json.h*/
+	/*MemoryTracker::Initialize();
 	seedRandom((unsigned int)time(nullptr));
 	setFilePath("assets");
 	rapidjson::Document document;
@@ -80,16 +62,9 @@ int main(int argc, char* argv[])
 	cout << i3 << endl;
 	int i4;
 	Json::Read(document, "Whyyyyyy", i4);
-	cout << i4 << endl;
+	cout << i4 << endl;*/
 
-	/*Variable pass ins*/
-	//int i = 5;
-	//zero(i); // <- does nothing (passing in just the value)
-	//
-	//zero(&i); // <- changes i's value (passing in a pointer reference)
-	//
-	//zero_ref(i); // <- changes i's value (passing in the variable as a reference)
-	
+	Factory::Instance().Register<SpriteComponent>("SpriteComponent");
 
 		//Start of Game Info Log
 	INFO_LOG("Game Started");

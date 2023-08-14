@@ -64,6 +64,12 @@
     <ClInclude Include="Components\CircleCollisionComponent.h">
       <Filter>Source\Components</Filter>
     </ClInclude>
+    <ClInclude Include="Singleton.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Factory.h">
+      <Filter>Source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -77,9 +83,6 @@
     </ClCompile>
     <ClCompile Include="ParticleSystem.cpp">
       <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Resource\ResourceManager.cpp">
-      <Filter>Source\Resource</Filter>
     </ClCompile>
     <ClCompile Include="Components\SpriteComponent.cpp">
       <Filter>Source\Components</Filter>

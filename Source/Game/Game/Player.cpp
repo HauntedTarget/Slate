@@ -51,7 +51,7 @@ void Player::Update(float dt)
 
 		//Lazer Components Init
 		std::unique_ptr<bls::SpriteComponent> component = std::make_unique<bls::SpriteComponent>();
-		component->m_texture = bls::g_resources.Get<bls::Texture>("lazer.png", bls::g_renderer);
+		component->m_texture = GET_RESOURCE(bls::Texture, "lazer.png", bls::g_renderer);
 		p_beam->AddComponent(std::move(component));
 
 		//Collision Component for Lazer

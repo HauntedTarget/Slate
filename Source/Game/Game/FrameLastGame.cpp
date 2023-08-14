@@ -4,12 +4,7 @@
 #include "Input/InputSystem.h"
 #include "Enemy.h"
 #include "Player.h"
-#include <Framework/Emitter.h>
-#include "Framework/Resource/ResourceManager.h"
-#include "Framework/Components/SpriteComponent.h"
-#include "Framework/Components/EnginePhyComponents.h"
-#include "Framework/Components/ModelRenderComponent.h"
-#include "Framework/Components/CircleCollisionComponent.h"
+#include "Framework/Framework.h"
 
 namespace bls
 {
@@ -23,7 +18,7 @@ namespace bls
 		g_audioSystem.AddAudio("music", "Bullet Hellz.wav");
 
 		// Init Font
-		m_font = bls::g_resources.Get<bls::Font>("Arcade.ttf", 24);
+		m_font = GET_RESOURCE(bls::Font, "Arcade.ttf", 24);
 
 		//Create Text Object
 		m_titleText = std::make_unique<Text>(m_font);
@@ -72,8 +67,8 @@ namespace bls
 			//Player Components Init:
 
 				//Render Component for Player
-			std::unique_ptr<bls::SpriteComponent> renderComponent = std::make_unique<bls::SpriteComponent>();
-			renderComponent->m_texture = bls::g_resources.Get<bls::Texture>("Ship.png", bls::g_renderer);
+			auto renderComponent = bls::Factory::Instance().Create<SpriteComponent>("SpriteComponent");
+			renderComponent->m_texture = GET_RESOURCE(bls::Texture, "Ship.png", bls::g_renderer);
 			player->AddComponent(std::move(renderComponent));
 
 				//Physics Component for Player
@@ -118,7 +113,7 @@ namespace bls
 				enemy->m_game = this;
 				//Enemy Components Init
 				std::unique_ptr<bls::SpriteComponent> component = std::make_unique<bls::SpriteComponent>();
-				component->m_texture = bls::g_resources.Get<bls::Texture>("enemy.png", bls::g_renderer);
+				component->m_texture = GET_RESOURCE(bls::Texture, "enemy.png", bls::g_renderer);
 				enemy->AddComponent(std::move(component));
 
 				//Collision Component for Enemy
