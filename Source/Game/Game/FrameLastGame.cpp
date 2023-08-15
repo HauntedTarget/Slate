@@ -67,17 +67,17 @@ namespace bls
 			//Player Components Init:
 
 				//Render Component for Player
-			auto renderComponent = bls::Factory::Instance().Create<SpriteComponent>("SpriteComponent");
+			auto renderComponent = CREATE_CLASS(SpriteComponent)
 			renderComponent->m_texture = GET_RESOURCE(bls::Texture, "Ship.png", bls::g_renderer);
 			player->AddComponent(std::move(renderComponent));
 
 				//Physics Component for Player
-			auto phyComponent = std::make_unique<bls::EnginePhyComponents>();
+			auto phyComponent = CREATE_CLASS(EnginePhyComponents)
 			phyComponent->m_damping = 0.8f;
 			player->AddComponent(std::move(phyComponent));
 
 				//Collision Component for Player
-			auto collisionComponent = std::make_unique<bls::CircleCollisionComponent>();
+			auto collisionComponent = CREATE_CLASS(CircleCollisionComponent)
 			collisionComponent->m_radius = 30.0f;
 			player->AddComponent(std::move(collisionComponent));
 
@@ -111,13 +111,14 @@ namespace bls
 				std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(50.0f, (float)DegreesToRadians(180), Transform((random((float)g_renderer.GetWidth()), random((float)g_renderer.GetHeight())), randomf(360), 1), this);
 				enemy->m_tag = "Enemy";
 				enemy->m_game = this;
-				//Enemy Components Init
-				std::unique_ptr<bls::SpriteComponent> component = std::make_unique<bls::SpriteComponent>();
+
+				//Enemy Sprite Component Init
+				auto component = CREATE_CLASS(SpriteComponent)
 				component->m_texture = GET_RESOURCE(bls::Texture, "enemy.png", bls::g_renderer);
 				enemy->AddComponent(std::move(component));
 
 				//Collision Component for Enemy
-				auto collisionComponent = std::make_unique<bls::CircleCollisionComponent>();
+				auto collisionComponent = CREATE_CLASS(CircleCollisionComponent)
 				collisionComponent->m_radius = 30.0f;
 				enemy->AddComponent(std::move(collisionComponent));
 

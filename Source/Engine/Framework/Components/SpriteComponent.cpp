@@ -4,6 +4,8 @@
 
 namespace bls {
 
+	CLASS_DEFINE(SpriteComponent)
+
 	void SpriteComponent::Update(float dt)
 	{
 

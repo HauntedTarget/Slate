@@ -9,6 +9,8 @@ namespace bls{
 	class GameObject : public Object
 	{
 	public:
+		CLASS_DECLARE(GameObject)
+
 		GameObject() = default;
 		GameObject(const bls::Transform& transform) :
 			m_transform{ transform }

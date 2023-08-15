@@ -3,6 +3,8 @@
 
 namespace bls{
 
+    CLASS_DEFINE(CircleCollisionComponent)
+
     void CircleCollisionComponent::Update(float dt)
     {
 

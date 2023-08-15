@@ -7,6 +7,8 @@ namespace bls {
 
 	public:
 
+		CLASS_DECLARE(CircleCollisionComponent)
+
 		virtual void Update(float dt) override;
 
 		virtual bool CheckCollision(CollisionComponent* collision) override;

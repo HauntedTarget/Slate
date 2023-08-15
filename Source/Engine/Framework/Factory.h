@@ -4,6 +4,8 @@
 #include <string>
 #include "Singleton.h"
 
+#define CREATE_CLASS(classname) bls::Factory::Instance().Create<bls::classname>(#classname);
+
 namespace bls
 {
 	class CreatorBase
@@ -33,6 +35,11 @@ namespace bls
 
 		template <typename T>
 		std::unique_ptr<T> Create(const std::string& key);
+
+		friend class Singleton;
+
+	protected:
+		Factory() = default;
 
 	private:
 		std::map<std::string, std::unique_ptr<CreatorBase>> m_registry;

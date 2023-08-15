@@ -3,6 +3,8 @@
 
 namespace bls
 {
+	CLASS_DEFINE(GameObject)
+
 	bool GameObject::Initialize()
 	{
 		for (auto& component : m_components)
@@ -51,5 +53,12 @@ namespace bls
 	{
 		component->m_owner = this;
 		m_components.push_back(std::move(component));
+	}
+
+	bool GameObject::Read(const rapidjson::Value& value)
+	{
+
+
+		return true;
 	}
 }

@@ -46,6 +46,7 @@
     <ClCompile Include="Components\SpriteComponent.cpp" />
     <ClCompile Include="Emitter.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Object.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="Scene.cpp" />
   </ItemGroup>

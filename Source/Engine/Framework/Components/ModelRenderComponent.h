@@ -8,6 +8,9 @@ namespace bls {
 	class ModelRenderComponent : public RenderComponent {
 
 	public:
+
+		CLASS_DECLARE(ModelRenderComponent)
+
 		void Update(float dt) override;
 		void Draw(class Renderer& renderer) override;
 

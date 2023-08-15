@@ -50,12 +50,12 @@ void Enemy::Update(float dt)
 		e_beam->m_tag = "UnFriendly";
 
 		//Lazer Components Init
-		std::unique_ptr<bls::SpriteComponent> component = std::make_unique<bls::SpriteComponent>();
+		std::unique_ptr<bls::SpriteComponent> component = CREATE_CLASS(SpriteComponent)
 		component->m_texture = GET_RESOURCE(bls::Texture, "lazer.png", bls::g_renderer);
 		e_beam->AddComponent(std::move(component));
 
 		//Collision Component for Lazer
-		auto collisionComponent = std::make_unique<bls::CircleCollisionComponent>();
+		auto collisionComponent = CREATE_CLASS(CircleCollisionComponent)
 		collisionComponent->m_radius = 30.0f;
 		e_beam->AddComponent(std::move(collisionComponent));
 

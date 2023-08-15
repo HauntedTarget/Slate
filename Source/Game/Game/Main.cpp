@@ -64,8 +64,6 @@ int main(int argc, char* argv[])
 	Json::Read(document, "Whyyyyyy", i4);
 	cout << i4 << endl;*/
 
-	Factory::Instance().Register<SpriteComponent>("SpriteComponent");
-
 		//Start of Game Info Log
 	INFO_LOG("Game Started");
 

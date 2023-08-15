@@ -4,6 +4,8 @@
 
 namespace bls{
 
+	CLASS_DEFINE(EnginePhyComponents)
+
 	void EnginePhyComponents::Update(float dt)
 	{
 		m_owner->m_transform.position += m_vel * dt;

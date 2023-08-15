@@ -3,6 +3,8 @@
 
 namespace bls{
 
+	CLASS_DEFINE(ModelRenderComponent)
+
 	void ModelRenderComponent::Update(float dt)
 	{
 
