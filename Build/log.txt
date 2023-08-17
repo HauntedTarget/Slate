@@ -1,12 +1,12 @@
-INFO: Factory.h (Line: 52)
-Class Registered: 
-INFO: Factory.h (Line: 52)
-Class Registered: 
-INFO: Factory.h (Line: 52)
-Class Registered: 
-INFO: Factory.h (Line: 52)
-Class Registered: 
-INFO: Factory.h (Line: 52)
-Class Registered: 
+INFO: Factory.h (Line: 53)
+Class Registered: GameObject
+INFO: Factory.h (Line: 53)
+Class Registered: SpriteComponent
+INFO: Factory.h (Line: 53)
+Class Registered: ModelRenderComponent
+INFO: Factory.h (Line: 53)
+Class Registered: EnginePhyComponents
+INFO: Factory.h (Line: 53)
+Class Registered: CircleCollisionComponent
 INFO: Main.cpp (Line: 68)
 Game Started

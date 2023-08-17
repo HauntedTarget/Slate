@@ -50,7 +50,7 @@ namespace bls
 	template<typename T>
 	inline void Factory::Register(const std::string& key)
 	{
-		INFO_LOG("Class Registered: ", key);
+		INFO_LOG("Class Registered: " + key);
 
 		m_registry[key] = std::make_unique<Creator<T>>();
 	}

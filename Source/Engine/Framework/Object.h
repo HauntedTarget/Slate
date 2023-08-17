@@ -5,7 +5,7 @@
 
 #define CLASS_DECLARE(classname) \
 virtual const char* GetClassName() {return #classname;}\
-void Read(const rapidjson::Value& value);\
+virtual void Read(const rapidjson::Value& value);\
 class Register {\
 public:\
 	Register()\
@@ -13,6 +13,15 @@ public:\
 		Factory::Instance().Register<classname>(#classname);\
 	}\
 };
+
+/*
+* Need this:
+* - CircleCollisionComponent just placeholder
+void CircleCollisionComponent::Read(const rapidjson::Value& value)
+{
+
+}
+*/
 
 #define CLASS_DEFINE(classname) classname::Register regist;
 

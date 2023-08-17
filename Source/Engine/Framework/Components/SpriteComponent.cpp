@@ -10,7 +10,7 @@ namespace bls {
 
 	bool SpriteComponent::Initialize()
 	{
-		m_texture = GET_RESOURCE(Texture, textureName, g_renderer);
+		if (!textureName.empty()) m_texture = GET_RESOURCE(Texture, textureName, g_renderer);
 
 		return true;
 	}
@@ -25,7 +25,7 @@ namespace bls {
 		renderer.DrawTexture(m_texture.get(), m_owner->transform);
 	}
 
-	void SpriteComponent::Read(const rapidJson::Value& value)
+	void SpriteComponent::Read(const rapidjson::Value& value)
 	{
 		READ_DATA(value, textureName);
 	}

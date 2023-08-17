@@ -16,4 +16,9 @@ namespace bls{
 	{
 		m_vel += force;
 	}
+
+	void EnginePhyComponents::Read(const rapidjson::Value& value)
+	{
+
+	}
 }

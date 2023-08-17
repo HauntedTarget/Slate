@@ -18,6 +18,7 @@ namespace bls {
 		virtual float GetRadius() override { return m_model->GetRadius(); }
 
 	public:
+		std::string modelName;
 		shatr<Model> m_model;
 
 	};

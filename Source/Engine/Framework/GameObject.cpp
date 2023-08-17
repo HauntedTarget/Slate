@@ -62,14 +62,14 @@ namespace bls
 		READ_DATA(value, tag);
 		READ_DATA(value, lifespan);
 
-		if (HAS_DATA(value, transform)) transform.Read(value);
+		if (HAS_DATA(value, transform)) transform.Read(GET_DATA(value, transform));
 
 		if (HAS_DATA(value, components) && GET_DATA(value, components).IsArray())
 		{
 			for (auto& componentValue : GET_DATA(value, components).GetArray())
 			{
 				std::string type;
-				READ_DATA(componentValue, type)
+				READ_DATA(componentValue, type);
 
 				auto component = CREATE_OBJECT_C(Component, type);
 				component->Read(componentValue);

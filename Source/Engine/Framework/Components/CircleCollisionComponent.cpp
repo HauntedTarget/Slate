@@ -18,4 +18,9 @@ namespace bls{
         return (distance <= radius);
     }
 
+    void CircleCollisionComponent::Read(const rapidjson::Value& value)
+    {
+
+    }
+
 }

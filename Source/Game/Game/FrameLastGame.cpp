@@ -20,6 +20,7 @@ namespace bls
 		// Init Font
 		m_font = GET_RESOURCE(bls::Font, "Arcade.ttf", 24);
 
+
 		//Create Text Object
 		m_titleText = std::make_unique<Text>(m_font);
 		m_titleText->Create(g_renderer, "FrameLast", Color{ 0.5, 1, 0, 1 });
@@ -29,12 +30,15 @@ namespace bls
 
 		//Scene Init
 		m_scene = std::make_unique <bls::Scene>();
+		m_scene->Load("Scene.json");
+		m_scene->Initialize();
 
 		return false;
 	}
 
 	void FrameLastGame::Shutdown()
 	{
+
 	}
 
 	void FrameLastGame::Update(float dt)

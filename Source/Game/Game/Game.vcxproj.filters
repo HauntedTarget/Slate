@@ -5,6 +5,9 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{0e810b29-648b-40b8-ba00-f9eb70a96902}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -16,7 +19,7 @@
     <ClCompile Include="Player.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="LazerComponent.cpp">
+    <ClCompile Include="Lazer.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="FrameLastGame.cpp">
@@ -30,11 +33,16 @@
     <ClInclude Include="Player.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="LazerComponent.h">
+    <ClInclude Include="Lazer.h">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="FrameLastGame.h">
       <Filter>Source</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\Build\Assets\Scene.json">
+      <Filter>Resources</Filter>
+    </None>
   </ItemGroup>
 </Project>

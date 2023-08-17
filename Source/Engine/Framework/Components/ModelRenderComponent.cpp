@@ -1,6 +1,7 @@
 #include "ModelRenderComponent.h"
 #include "Framework/GameObject.h"
 #include "Framework/Resource/ResourceManager.h"
+#include "Renderer/Renderer.h"
 
 namespace bls{
 
@@ -8,7 +9,7 @@ namespace bls{
 
 	bool ModelRenderComponent::Initialize()
 	{
-		m_model = GET_RESOURCE(Model, md, g_renderer);
+		if (!modelName.empty() ) m_model = GET_RESOURCE(Model, modelName, g_renderer);
 
 		return true;
 	}
@@ -23,8 +24,8 @@ namespace bls{
 		m_model->Draw(renderer, m_owner->transform);
 	}
 
-	void ModelRenderComponent::Read(const rapidJson::Value& value)
+	void ModelRenderComponent::Read(const rapidjson::Value& value)
 	{
-		READ_DATA(value, textureName);
+		READ_DATA(value, modelName);
 	}
 }

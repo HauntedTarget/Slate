@@ -1,29 +1,29 @@
 #pragma once
-#include "Framework/Components/Component.h"
+#include "Framework/Framework.h"
+#include "Audio/AudioSystem.h"
 
 namespace bls
 {
 
-	class LazerComponent : public Component
+	class Lazer : public GameObject
 	{
 
 	public:
-		/*
 		Lazer(float speed, const bls::Transform& transfrom) :
 			GameObject{ transfrom },
-			m_speed{ speed }
+			speed{ speed }
 		{
 			//Play Weapon Fire
 			bls::g_audioSystem.PlayOneShot("shoot");
 			lifespan = 1.5f;
 		}
-		*/
+		
 
 		bool Initialize();
 
 		void Update(float dt) override;
-		//void OnCollision(GameObject* object) override;
-		void Read(const rapidJson::Value& value);
+		void OnCollision(GameObject* object) override;
+		void Read(const rapidjson::Value& value);
 
 	private:
 		float speed = 0;

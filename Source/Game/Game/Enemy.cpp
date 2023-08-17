@@ -44,9 +44,10 @@ void Enemy::Update(float dt)
 
 		if (m_fireTimer <= 0.01f) m_fireTimer = 0.01f;
 
+		/*
 		//Create Weapon
 		bls::Transform transform{transform.position, transform.rotation, transform.scale * 0.5f};
-		std::unique_ptr<LazerComponent> e_beam = std::make_unique<LazerComponent>(400.0f, transform);
+		std::unique_ptr < bls::LazerComponent > e_beam = std::make_unique<LazerComponent>(400.0f, transform);
 		e_beam->tag = "UnFriendly";
 
 		//Lazer Components Init
@@ -61,7 +62,7 @@ void Enemy::Update(float dt)
 
 		e_beam->Initialize();
 		m_scene->Add(std::move(e_beam));
-
+		*/
 
 
 	}

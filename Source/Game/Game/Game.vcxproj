@@ -169,7 +169,7 @@
   <ItemGroup>
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="FrameLastGame.cpp" />
-    <ClCompile Include="LazerComponent.cpp" />
+    <ClCompile Include="Lazer.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Player.cpp" />
   </ItemGroup>
@@ -193,8 +193,11 @@
   <ItemGroup>
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="FrameLastGame.h" />
-    <ClInclude Include="LazerComponent.h" />
+    <ClInclude Include="Lazer.h" />
     <ClInclude Include="Player.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\Build\Assets\Scene.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

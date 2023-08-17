@@ -44,9 +44,10 @@ void Player::Update(float dt)
 	if ((bls::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE) && !bls::g_inputSystem.GetPreviousKeyDown(SDL_SCANCODE_SPACE))
 		|| (bls::g_inputSystem.GetKeyDown(SDL_SCANCODE_Z) && !bls::g_inputSystem.GetPreviousKeyDown(SDL_SCANCODE_Z)))
 	{
+		/*
 		//Create Weapon
 		bls::Transform transform{transform.position, transform.rotation, transform.scale * 0.5f};
-		std::unique_ptr<LazerComponent> p_beam = std::make_unique<LazerComponent>( 400.0f, transform);
+		std::unique_ptr<bls::LazerComponent> p_beam = std::make_unique<bls::LazerComponent>( 400.0f, transform);
 		p_beam->tag = "Friendly";
 
 		//Lazer Components Init
@@ -61,6 +62,7 @@ void Player::Update(float dt)
 
 		p_beam->Initialize();
 		m_scene->Add(std::move(p_beam));
+		*/
 	}
 
 	//Movement Updates

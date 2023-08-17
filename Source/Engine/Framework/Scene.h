@@ -11,12 +11,16 @@ namespace bls
 	{
 	public:
 		Scene() = default;
-
+		
+		bool Initialize();
 		void Update(float dt);
 		void Draw(Renderer& renderer);
 
 		void Add(std::unique_ptr<GameObject> gameObject);
 		void RemoveAll();
+
+		bool Load(const std::string& filename);
+		void Read(const rapidjson::Value& value);
 
 		template<typename T>
 		T* GetGameObject();

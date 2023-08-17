@@ -4,6 +4,13 @@
 
 namespace bls{
 
+	bool Scene::Initialize()
+	{
+		for (auto& GameObject : m_GameObjects) GameObject->Initialize();
+
+		return true;
+	}
+
 	void Scene::Update(float dt)
 	{
 		// Update and Remove Destroyed
@@ -64,5 +71,35 @@ namespace bls{
 	void Scene::RemoveAll()
 	{
 		m_GameObjects.clear();
+	}
+
+	bool Scene::Load(const std::string& filename)
+	{
+		rapidjson::Document document;
+		if (!Json::Load(filename, document))
+		{
+			ERROR_LOG("Could not load scene file: " << filename);
+		}
+
+		Read(document);
+
+		return false;
+	}
+
+	void Scene::Read(const rapidjson::Value& value) 
+	{
+		if (HAS_DATA(value, gameObject) && GET_DATA(value, gameObject).IsArray())
+		{
+			for (auto& gameObjectValue : GET_DATA(value, gameObject).GetArray())
+			{
+				std::string type;
+				READ_DATA(gameObjectValue, type);
+
+				auto gameObject = CREATE_OBJECT_C(GameObject, type);
+				gameObject->Read(gameObjectValue);
+
+				Add(std::move(gameObject));
+			}
+		}
 	}
 }
