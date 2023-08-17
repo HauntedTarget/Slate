@@ -13,9 +13,9 @@ namespace bls{
 		{
 			(*iter)->Update(dt);
 
-			if (iter->get()->m_destroyed)
+			if (iter->get()->destroyed)
 			{
-				if (iter->get()->m_tag == "Player" || iter->get()->m_tag == "Enemy") bls::g_audioSystem.PlayOneShot("death");
+				if (iter->get()->tag == "Player" || iter->get()->tag == "Enemy") bls::g_audioSystem.PlayOneShot("death");
 				iter = m_GameObjects.erase(iter);
 			}
 			else iter++;

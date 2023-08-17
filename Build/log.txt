@@ -1,2 +1,12 @@
+INFO: Factory.h (Line: 52)
+Class Registered: 
+INFO: Factory.h (Line: 52)
+Class Registered: 
+INFO: Factory.h (Line: 52)
+Class Registered: 
+INFO: Factory.h (Line: 52)
+Class Registered: 
+INFO: Factory.h (Line: 52)
+Class Registered: 
 INFO: Main.cpp (Line: 68)
 Game Started

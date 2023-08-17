@@ -13,7 +13,7 @@ class Enemy : public bls::GameObject
 public:
 	Enemy(float speed, float turnRate, const bls::Transform& transfrom, bls::FrameLastGame* curGame) :
 		GameObject{ transfrom },
-		m_speed{ speed },
+		speed{ speed },
 		m_turnRate{ turnRate },
 		m_curGame { curGame }
 	{
@@ -26,7 +26,7 @@ public:
 	void OnCollision(GameObject* object) override;
 
 private:
-	float m_speed = 0, m_turnRate = 0, m_fireTimer = 0;
+	float speed = 0, m_turnRate = 0, m_fireTimer = 0;
 	bls::FrameLastGame* m_curGame;
 
 };

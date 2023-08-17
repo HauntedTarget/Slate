@@ -13,7 +13,7 @@ class Player : public bls::GameObject
 public:
 	Player(float speed, float turnRate, const bls::Transform& transfrom) :
 		GameObject{ transfrom }, 
-		m_speed{speed},
+		speed{speed},
 		m_turnRate{turnRate}
 	{}
 
@@ -24,7 +24,7 @@ public:
 	float noHitTime = 0;
 
 private:
-	float m_speed = 0, m_turnRate = 0;
+	float speed = 0, m_turnRate = 0;
 
 	bls::PhysicsComponent* m_physicsComponent = nullptr;
 };

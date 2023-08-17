@@ -17,7 +17,7 @@ bool Enemy::Initialize()
 		auto renderComponent = GetComponent<bls::RenderComponent>();
 		if (renderComponent)
 		{
-			float scale = m_transform.scale;
+			float scale = transform.scale;
 			collisionComponent->m_radius = GetComponent<bls::RenderComponent>()->GetRadius() * scale;
 		}
 	}
@@ -32,8 +32,8 @@ void Enemy::Update(float dt)
 	Player* player = m_scene->GetGameObject<Player>();
 	if (player) 
 	{
-		bls::Vector2 direction = player->m_transform.position - this->m_transform.position;
-		m_transform.rotation = direction.Angle() + bls::DegreesToRadians(90);
+		bls::Vector2 direction = player->transform.position - this->transform.position;
+		transform.rotation = direction.Angle() + bls::DegreesToRadians(90);
 	}
 
 	m_fireTimer -= dt;
@@ -45,9 +45,9 @@ void Enemy::Update(float dt)
 		if (m_fireTimer <= 0.01f) m_fireTimer = 0.01f;
 
 		//Create Weapon
-		bls::Transform transform{m_transform.position, m_transform.rotation, m_transform.scale * 0.5f};
-		std::unique_ptr<Lazer> e_beam = std::make_unique<Lazer>(400.0f, transform);
-		e_beam->m_tag = "UnFriendly";
+		bls::Transform transform{transform.position, transform.rotation, transform.scale * 0.5f};
+		std::unique_ptr<LazerComponent> e_beam = std::make_unique<LazerComponent>(400.0f, transform);
+		e_beam->tag = "UnFriendly";
 
 		//Lazer Components Init
 		std::unique_ptr<bls::SpriteComponent> component = CREATE_CLASS(SpriteComponent)
@@ -67,15 +67,15 @@ void Enemy::Update(float dt)
 	}
 
 
-	bls::vec2 forword = bls::vec2{ 0,-1 }.Rotate(m_transform.rotation);
-	m_transform.position += forword * 1 * m_speed * dt;
-	m_transform.position.x = bls::Wrap(m_transform.position.x, (float)bls::g_renderer.GetWidth());
-	m_transform.position.y = bls::Wrap(m_transform.position.y, (float)bls::g_renderer.GetHeight());
+	bls::vec2 forword = bls::vec2{ 0,-1 }.Rotate(transform.rotation);
+	transform.position += forword * 1 * speed * dt;
+	transform.position.x = bls::Wrap(transform.position.x, (float)bls::g_renderer.GetWidth());
+	transform.position.y = bls::Wrap(transform.position.y, (float)bls::g_renderer.GetHeight());
 }
 
 void Enemy::OnCollision(GameObject* object)
 {
-	if (object->m_tag == "Friendly" && !object->m_destroyed)
+	if (object->tag == "Friendly" && !object->destroyed)
 	{
 		bls::EmitterData data;
 		data.burst = true;
@@ -89,13 +89,13 @@ void Enemy::OnCollision(GameObject* object)
 		data.speedMax = 250;
 		data.damping = 0.5f;
 		data.color = bls::Color{ 1, 1, 1, 1 };
-		bls::Transform transform{ { this->m_transform.position }, 0, 1 };
+		bls::Transform transform{ { this->transform.position }, 0, 1 };
 		auto emitter = std::make_unique<bls::Emitter>(transform, data);
-		emitter->m_lifespan = 1.0f;
+		emitter->lifespan = 1.0f;
 		m_scene->Add(std::move(emitter));
 
 		m_curGame->m_enemiesKilled++;
 
-		m_destroyed = true;
+		destroyed = true;
 	}
 }

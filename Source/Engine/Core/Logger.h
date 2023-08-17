@@ -5,12 +5,13 @@
 #include <iostream>
 
 #include "FileIO.h"
+#include "Framework/Singleton.h"
 
 #ifdef _DEBUG
-#define INFO_LOG(message) { if(bls::g_logger.Log(bls::LogLevel::Info, __FILE__, __LINE__)) {bls::g_logger << message << "\n";} }
-#define WARNING_LOG(message) { if(bls::g_logger.Log(bls::LogLevel::Warning, __FILE__, __LINE__)) {bls::g_logger << message << "\n";} }
-#define ERROR_LOG(message) { if(bls::g_logger.Log(bls::LogLevel::Error, __FILE__, __LINE__)) {bls::g_logger << message << "\n";} }
-#define ASSERT_LOG(condition, message) { if(!condition && bls::g_logger.Log(bls::LogLevel::Assert, __FILE__, __LINE__)) {bls::g_logger << message << "\n";} assert(condition); }
+#define INFO_LOG(message) { if(bls::Logger::Instance().Log(bls::LogLevel::Info, __FILE__, __LINE__)) {bls::Logger::Instance() << message << "\n";} }
+#define WARNING_LOG(message) { if(bls::Logger::Instance().Log(bls::LogLevel::Warning, __FILE__, __LINE__)) {bls::Logger::Instance() << message << "\n";} }
+#define ERROR_LOG(message) { if(bls::Logger::Instance().Log(bls::LogLevel::Error, __FILE__, __LINE__)) {bls::Logger::Instance() << message << "\n";} }
+#define ASSERT_LOG(condition, message) { if(!condition && bls::Logger::Instance().Log(bls::LogLevel::Assert, __FILE__, __LINE__)) {bls::Logger::Instance() << message << "\n";} assert(condition); }
 
 #else
 #define INFO_LOG(message)	{}
@@ -31,11 +32,11 @@ namespace bls
 		Assert
 	};
 
-	class Logger
+	class Logger : public Singleton<Logger>
 	{
 
 	public:
-		Logger(LogLevel logLevel, std::ostream* ostream, const std::string& filename = "") :
+		Logger(LogLevel logLevel = LogLevel::Info, std::ostream* ostream = &std::cout, const std::string& filename = "log.txt") :
 			m_logLevel{ logLevel },
 			m_ostream{ ostream }
 		{
@@ -54,7 +55,6 @@ namespace bls
 
 	};
 
-	extern Logger g_logger;
 	template<typename T>
 	inline Logger& Logger::operator<<(T v)
 	{

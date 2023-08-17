@@ -3,8 +3,10 @@
 #include <memory>
 #include <string>
 #include "Singleton.h"
+#include "Core/Logger.h"
 
 #define CREATE_CLASS(classname) bls::Factory::Instance().Create<bls::classname>(#classname);
+#define CREATE_OBJECT_C(classbase, classname) bls::Factory::Instance().Create<bls::classbase>(classname);
 
 namespace bls
 {
@@ -48,6 +50,8 @@ namespace bls
 	template<typename T>
 	inline void Factory::Register(const std::string& key)
 	{
+		INFO_LOG("Class Registered: ", key);
+
 		m_registry[key] = std::make_unique<Creator<T>>();
 	}
 

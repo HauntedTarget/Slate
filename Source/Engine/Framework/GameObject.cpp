@@ -7,7 +7,7 @@ namespace bls
 
 	bool GameObject::Initialize()
 	{
-		for (auto& component : m_components)
+		for (auto& component : components)
 		{
 			component->Initialize();
 		}
@@ -17,7 +17,7 @@ namespace bls
 
 	void GameObject::OnDestroy()
 	{
-		for (auto& component : m_components)
+		for (auto& component : components)
 		{
 			component->OnDestroy();
 		}
@@ -25,13 +25,13 @@ namespace bls
 
 	void GameObject::Update(float dt)
 	{
-		if (m_lifespan != -10.0f) 
+		if (lifespan != -10.0f) 
 		{
-			m_lifespan -= dt;
-			m_destroyed = (m_lifespan <= 0);
+			lifespan -= dt;
+			destroyed = (lifespan <= 0);
 		}
 
-		for (auto& component : m_components)
+		for (auto& component : components)
 		{
 			component->Update(dt);
 		}
@@ -39,7 +39,7 @@ namespace bls
 
 	void GameObject::Draw(bls::Renderer& renderer)
 	{
-		for (auto& component : m_components)
+		for (auto& component : components)
 		{
 			RenderComponent* renderComponent = dynamic_cast<RenderComponent*>(component.get());
 			if (renderComponent)
@@ -52,13 +52,30 @@ namespace bls
 	void GameObject::AddComponent(std::unique_ptr<Component> component)
 	{
 		component->m_owner = this;
-		m_components.push_back(std::move(component));
+		components.push_back(std::move(component));
 	}
 
-	bool GameObject::Read(const rapidjson::Value& value)
+	void GameObject::Read(const rapidjson::Value& value)
 	{
+		Object::Read(value);
 
+		READ_DATA(value, tag);
+		READ_DATA(value, lifespan);
 
-		return true;
+		if (HAS_DATA(value, transform)) transform.Read(value);
+
+		if (HAS_DATA(value, components) && GET_DATA(value, components).IsArray())
+		{
+			for (auto& componentValue : GET_DATA(value, components).GetArray())
+			{
+				std::string type;
+				READ_DATA(componentValue, type)
+
+				auto component = CREATE_OBJECT_C(Component, type);
+				component->Read(componentValue);
+
+				AddComponent(std::move(component));
+			}
+		}
 	}
 }

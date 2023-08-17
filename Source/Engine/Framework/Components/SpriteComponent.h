@@ -9,8 +9,9 @@ namespace bls {
 
 	public:
 
-		CLASS_DECLARE(SpriteComponent)
+		CLASS_DECLARE(SpriteComponent);
 
+		bool Initialize() override;
 		void Update(float dt) override;
 		void Draw(class Renderer& renderer) override;
 
@@ -18,6 +19,8 @@ namespace bls {
 
 
 	public:
+		std::string textureName;
+
 		shatr<Texture> m_texture;
 
 	};

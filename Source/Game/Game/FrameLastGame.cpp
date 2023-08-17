@@ -61,7 +61,7 @@ namespace bls
 		{
 			//Player Creation
 			std::unique_ptr<Player> player = std::make_unique<Player>(100.0f, (float)DegreesToRadians(180), Transform(((g_renderer.GetHeight() / 2), (g_renderer.GetWidth() / 2)), 0, 1));
-			player->m_tag = "Player";
+			player->tag = "Player";
 			player->m_game = this;
 
 			//Player Components Init:
@@ -109,7 +109,7 @@ namespace bls
 				m_enemiesIn++;
 				//Spawn Enemy
 				std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(50.0f, (float)DegreesToRadians(180), Transform((random((float)g_renderer.GetWidth()), random((float)g_renderer.GetHeight())), randomf(360), 1), this);
-				enemy->m_tag = "Enemy";
+				enemy->tag = "Enemy";
 				enemy->m_game = this;
 
 				//Enemy Sprite Component Init

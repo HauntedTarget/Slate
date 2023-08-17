@@ -13,7 +13,7 @@ namespace bls{
 
 		GameObject() = default;
 		GameObject(const bls::Transform& transform) :
-			m_transform{ transform }
+			transform{ transform }
 		{}
 
 		virtual bool Initialize() override;
@@ -35,24 +35,24 @@ namespace bls{
 
 		class Game* m_game = nullptr;
 
-		Transform m_transform;
+		Transform transform;
 
-		std::string m_tag;
+		std::string tag;
 
-		bool m_destroyed = false;
+		bool destroyed = false;
 
 		//Can be used as a range for lazers/bullets
-		float m_lifespan = -10.0f;
+		float lifespan = -10.0f;
 
 	protected:
-		std::vector<std::unique_ptr<Component>> m_components;
+		std::vector<std::unique_ptr<Component>> components;
 
 	};
 
 	template<typename T>
 	inline T* GameObject::GetComponent()
 	{
-		for (auto& comp : m_components)
+		for (auto& comp : components)
 		{
 			T* result = dynamic_cast<T*>(comp.get());
 			if (result) return result;

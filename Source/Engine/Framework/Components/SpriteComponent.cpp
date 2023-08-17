@@ -1,10 +1,19 @@
 #include "SpriteComponent.h"
 #include "Renderer/Renderer.h"
 #include "Framework/GameObject.h"
+#include "Core/Json.h"
+#include "Framework/Resource/ResourceManager.h"
 
 namespace bls {
 
-	CLASS_DEFINE(SpriteComponent)
+	CLASS_DEFINE(SpriteComponent);
+
+	bool SpriteComponent::Initialize()
+	{
+		m_texture = GET_RESOURCE(Texture, textureName, g_renderer);
+
+		return true;
+	}
 
 	void SpriteComponent::Update(float dt)
 	{
@@ -13,7 +22,12 @@ namespace bls {
 
 	void SpriteComponent::Draw(Renderer& renderer)
 	{
-		renderer.DrawTexture(m_texture.get(), m_owner->m_transform);
+		renderer.DrawTexture(m_texture.get(), m_owner->transform);
+	}
+
+	void SpriteComponent::Read(const rapidJson::Value& value)
+	{
+		READ_DATA(value, textureName);
 	}
 
 }

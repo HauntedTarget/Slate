@@ -11,6 +11,7 @@ namespace bls {
 
 		CLASS_DECLARE(ModelRenderComponent)
 
+		bool Initialize() override;
 		void Update(float dt) override;
 		void Draw(class Renderer& renderer) override;
 

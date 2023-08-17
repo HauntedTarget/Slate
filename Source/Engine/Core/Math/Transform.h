@@ -2,6 +2,7 @@
 #include "Vector2.h"
 #include "MatrixBy2.h"
 #include "MatrixBy3.h"
+#include "Core/Json.h"
 
 namespace bls
 {
@@ -28,5 +29,7 @@ namespace bls
 
 			return (mt * ms * mr);
 		}
+
+		void Read(const rapidjson::Value& value);
 	};
 }
