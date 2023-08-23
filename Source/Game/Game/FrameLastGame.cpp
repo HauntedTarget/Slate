@@ -33,7 +33,13 @@ namespace bls
 		m_scene->Load("Scene.json");
 		m_scene->Initialize();
 
-		return false;
+		//Add Events
+		EVENT_SUBSCRIBE("AddLife", FrameLastGame::AddLife);
+		EVENT_SUBSCRIBE("OnPlayerDead", FrameLastGame::OnPlayerDead);
+		/*bls::EventManager::Instance().Subscribe("AddLife", this, std::bind(&FrameLastGame::AddLife, this, std::placeholders::_1));
+		bls::EventManager::Instance().Subscribe("OnPlayerDead", this, std::bind(&FrameLastGame::OnPlayerDead, this, std::placeholders::_1));*/
+
+		return true;
 	}
 
 	void FrameLastGame::Shutdown()
@@ -96,7 +102,10 @@ namespace bls
 		m_state = eState::Game;
 		m_spawnTime = 2 - (0.001f * m_wave);
 		if (m_spawnTime <= 0) m_spawnTime = 0.001f;
-		m_life += 5;
+
+		bls::EventManager::Instance().DispatchEvent("AddLife", 5);
+		//m_life += 5;
+
 		if (m_life >= 100)
 		{
 			m_life = 100;
@@ -196,5 +205,14 @@ namespace bls
 		}
 		m_scene->Draw(renderer);
 
+	}
+	void FrameLastGame::AddLife(const bls::Event& event)
+	{
+		m_life += std::get<int>(event.data);
+	}
+
+	void FrameLastGame::OnPlayerDead(const bls::Event& event)
+	{
+		m_state = eState::GameOver;
 	}
 }

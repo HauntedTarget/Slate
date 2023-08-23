@@ -91,11 +91,11 @@ void Player::OnCollision(GameObject* object)
 
 		noHitTime = 2;
 
-		m_game->SetLife(-5);
+		bls::EventManager::Instance().DispatchEvent("AddLife", -5);
 
 		if (m_game->GetLife() <= 0)
 		{
-			destroyed = true;
+			//destroyed = true;
 
 			bls::EmitterData data;
 			data.burst = true;
@@ -114,7 +114,9 @@ void Player::OnCollision(GameObject* object)
 			emitter->lifespan = 1.0f;
 			m_scene->Add(std::move(emitter));
 
-			dynamic_cast<bls::FrameLastGame*>(m_game)->SetState(bls::FrameLastGame::eState::GameOver);
+			bls::EventManager::Instance().DispatchEvent("OnPlayerDead", 0);
+
+			//dynamic_cast<bls::FrameLastGame*>(m_game)->SetState(bls::FrameLastGame::eState::GameOver);
 		}
 	}
 }

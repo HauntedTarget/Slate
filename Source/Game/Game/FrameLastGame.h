@@ -2,10 +2,11 @@
 #include "Framework/Game.h"
 #include "Renderer/Font.h"
 #include "Renderer/Text.h"
+#include "Framework/Event/EventManager.h"
 
 namespace bls
 {
-	class FrameLastGame : public bls::Game
+	class FrameLastGame : public bls::Game, bls::IEventListener
 	{
 
 	public:
@@ -31,6 +32,10 @@ namespace bls
 		virtual void Draw(Renderer& renderer) override;
 
 		void SetState(eState state) { m_state = state; }
+
+		void AddLife(const bls::Event& event);
+
+		void OnPlayerDead(const bls::Event& event);
 
 		int m_enemiesKilled = 0;
 		bool m_fighting = true;

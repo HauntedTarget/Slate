@@ -19,3 +19,4 @@
 #include "Components/RenderComponent.h"
 #include "Components/CollisionComponent.h"
 #include "Components/CircleCollisionComponent.h"
+#include "Event/EventManager.h"

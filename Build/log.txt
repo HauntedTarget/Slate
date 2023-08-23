@@ -12,7 +12,11 @@ INFO: Factory.h (Line: 71)
 Class Registered: EnginePhyComponents
 INFO: Factory.h (Line: 71)
 Class Registered: CircleCollisionComponent
-INFO: Main.cpp (Line: 111)
+INFO: Main.cpp (Line: 70)
 Game Started
 INFO: Factory.h (Line: 79)
 Prototype Registered: Beam
+INFO: EventManager.cpp (Line: 18)
+Event Subcribed: AddLife
+INFO: EventManager.cpp (Line: 18)
+Event Subcribed: OnPlayerDead
