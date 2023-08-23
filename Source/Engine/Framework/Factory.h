@@ -7,6 +7,7 @@
 
 #define CREATE_CLASS(classname) bls::Factory::Instance().Create<bls::classname>(#classname);
 #define CREATE_OBJECT_C(classbase, classname) bls::Factory::Instance().Create<bls::classbase>(classname);
+#define INSTANTIATE(classbase, classname) bls::Factory::Instance().Create<bls::classbase>(classname);
 
 namespace bls
 {
@@ -29,11 +30,28 @@ namespace bls
 		}
 	};
 
+	template <typename T>
+	class PrototypeCreator : public CreatorBase
+	{
+	public:
+		PrototypeCreator(std::unique_ptr<T> prototype) : m_prototype{ std::move(prototype) } {}
+		std::unique_ptr<class Object> Create() override
+		{
+			return m_prototype->Clone();
+		}
+
+	private:
+		std::unique_ptr<T> m_prototype;
+	};
+
 	class Factory : public Singleton<Factory>
 	{
 	public:
 		template <typename T>
 		void Register(const std::string& key);
+
+		template <typename T>
+		void RegisterP(const std::string& key, std::unique_ptr<T> prototype);
 
 		template <typename T>
 		std::unique_ptr<T> Create(const std::string& key);
@@ -56,6 +74,14 @@ namespace bls
 	}
 
 	template<typename T>
+	inline void Factory::RegisterP(const std::string& key, std::unique_ptr<T> prototype)
+	{
+		INFO_LOG("Prototype Registered: " + key);
+
+		m_registry[key] = std::make_unique<PrototypeCreator<T>>(std::move(prototype));
+	}
+
+	template<typename T>
 	inline std::unique_ptr<T> Factory::Create(const std::string& key)
 	{
 		auto iter = m_registry.find(key);
@@ -63,6 +89,9 @@ namespace bls
 		{
 			return std::unique_ptr<T>(dynamic_cast<T*>(iter->second->Create().release()));
 		}
+
+		ERROR_LOG("Class not found in Factory: " << key);
+
 		return std::unique_ptr<T>();
 	}
 }

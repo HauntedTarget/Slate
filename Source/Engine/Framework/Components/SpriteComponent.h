@@ -9,7 +9,7 @@ namespace bls {
 
 	public:
 
-		CLASS_DECLARE(SpriteComponent);
+		CLASS_DECLARE(SpriteComponent)
 
 		bool Initialize() override;
 		void Update(float dt) override;

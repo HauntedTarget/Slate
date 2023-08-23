@@ -44,6 +44,12 @@ void Player::Update(float dt)
 	if ((bls::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE) && !bls::g_inputSystem.GetPreviousKeyDown(SDL_SCANCODE_SPACE))
 		|| (bls::g_inputSystem.GetKeyDown(SDL_SCANCODE_Z) && !bls::g_inputSystem.GetPreviousKeyDown(SDL_SCANCODE_Z)))
 	{
+		auto weapon = INSTANTIATE(Lazer, "Beam");
+		weapon->transform = { transform.position, transform.rotation, transform.scale * 0.5f };
+		weapon->Initialize();
+		weapon->tag = "Friendly";
+		m_scene->Add(std::move(weapon));
+
 		/*
 		//Create Weapon
 		bls::Transform transform{transform.position, transform.rotation, transform.scale * 0.5f};

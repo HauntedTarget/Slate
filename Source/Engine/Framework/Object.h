@@ -6,6 +6,7 @@
 #define CLASS_DECLARE(classname) \
 virtual const char* GetClassName() {return #classname;}\
 virtual void Read(const rapidjson::Value& value);\
+virtual std::unique_ptr<Object> Clone() { return std::make_unique<classname>(*this); }\
 class Register {\
 public:\
 	Register()\
@@ -13,15 +14,6 @@ public:\
 		Factory::Instance().Register<classname>(#classname);\
 	}\
 };
-
-/*
-* Need this:
-* - CircleCollisionComponent just placeholder
-void CircleCollisionComponent::Read(const rapidjson::Value& value)
-{
-
-}
-*/
 
 #define CLASS_DEFINE(classname) classname::Register regist;
 
@@ -41,8 +33,9 @@ namespace bls {
 		virtual bool Initialize() { return true; }
 		virtual void OnDestroy() {}
 
-	protected:
+	public:
 		std::string name;
+		bool active = true;
 
 	};
 

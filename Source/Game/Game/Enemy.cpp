@@ -44,6 +44,12 @@ void Enemy::Update(float dt)
 
 		if (m_fireTimer <= 0.01f) m_fireTimer = 0.01f;
 
+		auto weapon = INSTANTIATE(Lazer, "Beam");
+		weapon->transform = { transform.position, transform.rotation, transform.scale * 0.5f };
+		weapon->Initialize();
+		weapon->tag = "UnFriendly";
+		m_scene->Add(std::move(weapon));
+
 		/*
 		//Create Weapon
 		bls::Transform transform{transform.position, transform.rotation, transform.scale * 0.5f};

@@ -1,12 +1,18 @@
-INFO: Factory.h (Line: 53)
+INFO: Factory.h (Line: 71)
+Class Registered: Lazer
+INFO: Factory.h (Line: 71)
+Class Registered: TextRenderComponent
+INFO: Factory.h (Line: 71)
 Class Registered: GameObject
-INFO: Factory.h (Line: 53)
+INFO: Factory.h (Line: 71)
 Class Registered: SpriteComponent
-INFO: Factory.h (Line: 53)
+INFO: Factory.h (Line: 71)
 Class Registered: ModelRenderComponent
-INFO: Factory.h (Line: 53)
+INFO: Factory.h (Line: 71)
 Class Registered: EnginePhyComponents
-INFO: Factory.h (Line: 53)
+INFO: Factory.h (Line: 71)
 Class Registered: CircleCollisionComponent
-INFO: Main.cpp (Line: 68)
+INFO: Main.cpp (Line: 111)
 Game Started
+INFO: Factory.h (Line: 79)
+Prototype Registered: Beam

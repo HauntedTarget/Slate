@@ -11,7 +11,9 @@
 #include "Renderer/Text.h"
 #include "Renderer/Texture.h"
 #include "FrameLastGame.h"
+#include "Physics/PhysicsSystem.h"
 	//Included Libs (Always needed)
+#include <functional>
 #include <iostream>
 #include <thread>
 #include <vector>
@@ -42,9 +44,51 @@ public:
 	vec2 m_vel;
 };
 
+void print(int i)
+{
+	cout << i << endl;
+}
+
+int add(int i1, int i2)
+{
+	return i1 + i2;
+}
+
+int sub(int i1, int i2)
+{
+	return i1 - i2;
+}
+
+class A
+{
+public:
+	int add(int i1, int i2)
+	{
+		return i1 + i2;
+	}
+};
+
 //Main Function
 int main(int argc, char* argv[])
 {
+	void (*func_ptr)(int) = &print;
+	func_ptr(5);
+
+	int (*op_ptr)(int, int);
+
+	op_ptr = sub;
+
+	cout << op_ptr(4, 4) << endl;
+
+	function<int(int, int)> op;
+	op = add;
+
+	cout << op(4, 4) << endl;
+
+	A a;
+	op = bind(&A::add, &a, placeholders::_1, placeholders::_2);
+	cout << op(5, 5) << endl;
+
 	/*Testing Json.h*/
 	/*MemoryTracker::Initialize();
 	seedRandom((unsigned int)time(nullptr));
@@ -77,6 +121,7 @@ int main(int argc, char* argv[])
 	g_audioSystem.Initialize();
 	g_renderer.Initialize();
 	g_inputSystem.Initialize();
+	PhysicsSystem::Instance().Initialize();
 
 		//Selects Asset Filepath
 	setFilePath("assets");

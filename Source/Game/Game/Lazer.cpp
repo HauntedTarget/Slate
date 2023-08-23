@@ -3,8 +3,12 @@
 
 namespace bls
 {
+	CLASS_DEFINE(Lazer)
 	bool Lazer::Initialize()
 	{
+
+		GameObject::Initialize();
+
 		auto collisionComponent = GetComponent<bls::CollisionComponent>();
 		if (collisionComponent)
 		{
@@ -21,6 +25,8 @@ namespace bls
 
 	void Lazer::Update(float dt)
 	{
+		GameObject::Update(dt);
+
 		/*lifespan -= dt;
 		if (transform.position.x < -25 || transform.position.x > bls::g_renderer.GetWidth() + 25 ||
 			transform.position.y < -25 || transform.position.y > bls::g_renderer.GetHeight() + 25)
@@ -38,6 +44,8 @@ namespace bls
 
 	void Lazer::Read(const rapidjson::Value& value)
 	{
+		GameObject::Read(value);
+
 		READ_DATA(value, speed);
 	}
 

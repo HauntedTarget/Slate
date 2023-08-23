@@ -28,6 +28,8 @@
     <ClInclude Include="Components\RenderComponent.h" />
     <ClInclude Include="Components\SpriteComponent.h" />
     <ClInclude Include="Emitter.h" />
+    <ClInclude Include="Event\Event.h" />
+    <ClInclude Include="Event\EventManager.h" />
     <ClInclude Include="Factory.h" />
     <ClInclude Include="Framework.h" />
     <ClInclude Include="Game.h" />
@@ -38,6 +40,7 @@
     <ClInclude Include="Resource\ResourceManager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Singleton.h" />
+    <ClInclude Include="TextRenderComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Components\CircleCollisionComponent.cpp" />
@@ -45,10 +48,12 @@
     <ClCompile Include="Components\ModelRenderComponent.cpp" />
     <ClCompile Include="Components\SpriteComponent.cpp" />
     <ClCompile Include="Emitter.cpp" />
+    <ClCompile Include="Event\EventManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="TextRenderComponent.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

@@ -18,7 +18,7 @@ namespace bls{
 
 		while (iter != m_GameObjects.end())
 		{
-			(*iter)->Update(dt);
+			if ((*iter)->active) (*iter)->Update(dt);
 
 			if (iter->get()->destroyed)
 			{
@@ -58,7 +58,7 @@ namespace bls{
 	{
 		for (auto& gameObjects : m_GameObjects)
 		{
-			gameObjects->Draw(renderer);
+			if (gameObjects->active) gameObjects->Draw(renderer);
 		}
 	}
 
@@ -68,9 +68,19 @@ namespace bls{
 		m_GameObjects.push_back(std::move(gameObject));
 	}
 
-	void Scene::RemoveAll()
+	void Scene::RemoveAll(bool force)
 	{
-		m_GameObjects.clear();
+		auto iter = m_GameObjects.begin();
+
+		while (iter != m_GameObjects.end())
+		{
+
+			if (!(*iter)->persistent || force)
+			{
+				iter = m_GameObjects.erase(iter);
+			}
+			else iter++;
+		}
 	}
 
 	bool Scene::Load(const std::string& filename)
@@ -88,9 +98,9 @@ namespace bls{
 
 	void Scene::Read(const rapidjson::Value& value) 
 	{
-		if (HAS_DATA(value, gameObject) && GET_DATA(value, gameObject).IsArray())
+		if (HAS_DATA(value, gameobjects) && GET_DATA(value, gameobjects).IsArray())
 		{
-			for (auto& gameObjectValue : GET_DATA(value, gameObject).GetArray())
+			for (auto& gameObjectValue : GET_DATA(value, gameobjects).GetArray())
 			{
 				std::string type;
 				READ_DATA(gameObjectValue, type);
@@ -98,7 +108,15 @@ namespace bls{
 				auto gameObject = CREATE_OBJECT_C(GameObject, type);
 				gameObject->Read(gameObjectValue);
 
-				Add(std::move(gameObject));
+				if (gameObject->prototype)
+				{
+					std::string name = gameObject->name;
+					Factory::Instance().RegisterP(name, std::move(gameObject));
+				}
+				else 
+				{
+					Add(std::move(gameObject));
+				}
 			}
 		}
 	}

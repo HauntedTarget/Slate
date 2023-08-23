@@ -3,6 +3,7 @@
 		{
 			"type": "GameObject",
 			"name": "Background",
+			"persistent": true,
 			"transform": {
 				"position": [ 400, 300 ],
 				"scale": 2,
@@ -11,7 +12,47 @@
 			"components": [
 				{
 					"type": "SpriteComponent",
-					"textureName": "enemy.png"
+					"textureName": "backgroundThing.png"
+				}
+			]
+		},
+		{
+			"type": "Lazer",
+			"name": "Beam",
+			"prototype": true,
+			"tag": "Player",
+			"lifespan": 2,
+			"transform": {
+				"position": [ 400, 300 ],
+				"scale": 1,
+				"rotation": 0
+			},
+			"speed": 200,
+			"components": [
+				{
+					"type": "SpriteComponent",
+					"textureName": "lazer.png"
+				},
+				{
+					"type": "CircleCollisionComponent"
+				}
+			]
+		},
+		{
+			"type": "GameObject",
+			"name": "Title",
+			"persistent": true,
+			"transform": {
+				"position": [ 400, 300 ],
+				"scale": 2,
+				"rotation": 0
+			},
+			"components": [
+				{
+					"type": "TextRenderComponent",
+					"fontName": "Arcade.ttf",
+					"fontSize": 24,
+					"text": "ASTEROIDZ"
 				}
 			]
 		}

@@ -50,6 +50,7 @@ namespace bls
 			if (bls::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE)) 
 			{
 				m_state = eState::StartGame;
+				//m_scene->GetGameObjectByName("Background")->active = false;
 			}
 			break;
 

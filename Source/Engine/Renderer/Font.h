@@ -17,7 +17,8 @@ namespace bls
 		bool Load(const std::string& filename, int fontSize);
 
 		friend class Text;
-	private:
+
 		_TTF_Font* m_ttfFont = nullptr;
+	private:
 	};
 }

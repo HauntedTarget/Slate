@@ -15,6 +15,7 @@ namespace bls{
 		GameObject(const bls::Transform& transform) :
 			transform{ transform }
 		{}
+		GameObject(const GameObject& other);
 
 		virtual bool Initialize() override;
 		virtual void OnDestroy() override;
@@ -39,7 +40,7 @@ namespace bls{
 
 		std::string tag;
 
-		bool destroyed = false;
+		bool destroyed = false, persistent = false, prototype = false;
 
 		//Can be used as a range for lazers/bullets
 		float lifespan = -10.0f;
