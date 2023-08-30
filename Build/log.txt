@@ -28,5 +28,17 @@ INFO: Scene.cpp (Line: 112)
 Read ->Beam
 INFO: Factory.h (Line: 79)
 Prototype Registered: Beam
-ERROR: Factory.h (Line: 93)
-Class not found in Factory: SpriteRenderComponent
+INFO: Scene.cpp (Line: 112)
+Read ->Player
+INFO: Factory.h (Line: 79)
+Prototype Registered: Player
+INFO: Scene.cpp (Line: 112)
+Read ->Enemy
+INFO: Factory.h (Line: 79)
+Prototype Registered: Enemy
+INFO: Scene.cpp (Line: 112)
+Read ->Title
+INFO: EventManager.cpp (Line: 18)
+Event Subcribed: AddLife
+INFO: EventManager.cpp (Line: 18)
+Event Subcribed: OnPlayerDead

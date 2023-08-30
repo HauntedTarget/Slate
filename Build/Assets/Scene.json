@@ -52,7 +52,7 @@
 			"turnRate": 0.5,
 			"components": [
 				{
-					"type": "SpriteRenderComponent",
+					"type": "SpriteComponent",
 					"textureName": "Ship.png"
 				},
 				{
@@ -81,7 +81,7 @@
 			"turnRate": 0.5,
 			"components": [
 				{
-					"type": "SpriteRenderComponent",
+					"type": "SpriteComponent",
 					"textureName": "enemy.png"
 				},
 				{
