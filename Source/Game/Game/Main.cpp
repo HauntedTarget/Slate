@@ -128,6 +128,8 @@ int main(int argc, char* argv[])
 
 			//Update Game
 		game->Update(g_time.GetDeltaTime());
+
+		PhysicsSystem::Instance().Update(g_time.GetDeltaTime());
 		
 			//Frame Init
 		g_renderer.SetColor(0, 0, 0, 255);

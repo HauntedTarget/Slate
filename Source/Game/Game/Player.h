@@ -7,24 +7,28 @@
 #include "Audio/AudioSystem.h"
 #include "Framework/Components/PhysicsComponent.h"
 
-class Player : public bls::GameObject
-{
+namespace bls{
+	class Player : public bls::GameObject
+	{
 
-public:
-	Player(float speed, float turnRate, const bls::Transform& transfrom) :
-		GameObject{ transfrom }, 
-		speed{speed},
-		m_turnRate{turnRate}
-	{}
+	public:
+		CLASS_DECLARE(Player)
 
-	bool Initialize() override;
-	void Update(float dt) override;
-	void OnCollision(GameObject* object) override;
+		//Player(float speed, float turnRate, const bls::Transform& transfrom) :
+		//	GameObject{ transfrom },
+		//	speed{ speed },
+		//	m_turnRate{ turnRate }
+		//{}
 
-	float noHitTime = 0;
+		bool Initialize() override;
+		void Update(float dt) override;
+		void OnCollisionEnter(GameObject* object) override;
 
-private:
-	float speed = 0, m_turnRate = 0;
+		float noHitTime = 0;
 
-	bls::PhysicsComponent* m_physicsComponent = nullptr;
-};
+	private:
+		float speed = 0, m_turnRate = 0;
+
+		bls::PhysicsComponent* m_physicsComponent = nullptr;
+	};
+}

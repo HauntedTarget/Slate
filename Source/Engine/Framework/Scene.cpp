@@ -44,9 +44,9 @@ namespace bls{
 
 				if (collision1->CheckCollision(collision2)) 
 				{
-					//OnCollision Caller
-					(*iter1)->OnCollision(iter2->get());
-					(*iter2)->OnCollision(iter1->get());
+					//OnCollisionEnter Caller
+					(*iter1)->OnCollisionEnter(iter2->get());
+					(*iter2)->OnCollisionEnter(iter1->get());
 				}
 
 			}
@@ -105,17 +105,21 @@ namespace bls{
 				std::string type;
 				READ_DATA(gameObjectValue, type);
 
-				auto gameObject = CREATE_OBJECT_C(GameObject, type);
-				gameObject->Read(gameObjectValue);
+				auto gameObject = Factory::Instance().Create<GameObject>(type);
+				if (gameObject)
+				{
+					gameObject->Read(gameObjectValue);
+					INFO_LOG("Read ->" << gameObject->name);
 
-				if (gameObject->prototype)
-				{
-					std::string name = gameObject->name;
-					Factory::Instance().RegisterP(name, std::move(gameObject));
-				}
-				else 
-				{
-					Add(std::move(gameObject));
+					if (gameObject->prototype)
+					{
+						std::string name = gameObject->name;
+						Factory::Instance().RegisterP(name, std::move(gameObject));
+					}
+					else
+					{
+						Add(std::move(gameObject));
+					}
 				}
 			}
 		}

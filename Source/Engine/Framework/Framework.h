@@ -19,4 +19,6 @@
 #include "Components/RenderComponent.h"
 #include "Components/CollisionComponent.h"
 #include "Components/CircleCollisionComponent.h"
+#include "Components/Box2DCollisionComponent.h"
+#include "Components/Box2DPhysicsComponent.h"
 #include "Event/EventManager.h"

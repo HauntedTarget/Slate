@@ -17,6 +17,11 @@ namespace bls{
 		m_vel += force;
 	}
 
+	void EnginePhyComponents::ApplyTorque(float torque)
+	{
+
+	}
+
 	void EnginePhyComponents::Read(const rapidjson::Value& value)
 	{
 

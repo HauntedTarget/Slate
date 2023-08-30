@@ -71,29 +71,34 @@ namespace bls
 			m_scene->RemoveAll();
 		{
 			//Player Creation
-			std::unique_ptr<Player> player = std::make_unique<Player>(100.0f, (float)DegreesToRadians(180), Transform(((g_renderer.GetHeight() / 2), (g_renderer.GetWidth() / 2)), 0, 1));
+			/*std::unique_ptr<Player> player = std::make_unique<Player>(100.0f, (float)DegreesToRadians(180), Transform(((g_renderer.GetHeight() / 2), (g_renderer.GetWidth() / 2)), 0, 1));
 			player->tag = "Player";
-			player->m_game = this;
+			player->m_game = this;*/
+
+			auto player = INSTANTIATE(Player, "Player");
+			player->transform = bls::Transform{ { 400, 300 }, 0, 1 };
+			player->Initialize();
+			m_scene->Add(std::move(player));
 
 			//Player Components Init:
 
 				//Render Component for Player
-			auto renderComponent = CREATE_CLASS(SpriteComponent)
-			renderComponent->m_texture = GET_RESOURCE(bls::Texture, "Ship.png", bls::g_renderer);
-			player->AddComponent(std::move(renderComponent));
+			//auto renderComponent = CREATE_CLASS(SpriteComponent)
+			//renderComponent->m_texture = GET_RESOURCE(bls::Texture, "Ship.png", bls::g_renderer);
+			//player->AddComponent(std::move(renderComponent));
 
-				//Physics Component for Player
-			auto phyComponent = CREATE_CLASS(EnginePhyComponents)
-			phyComponent->m_damping = 0.8f;
-			player->AddComponent(std::move(phyComponent));
+			//	//Physics Component for Player
+			//auto phyComponent = CREATE_CLASS(EnginePhyComponents)
+			//phyComponent->m_damping = 0.8f;
+			//player->AddComponent(std::move(phyComponent));
 
-				//Collision Component for Player
-			auto collisionComponent = CREATE_CLASS(CircleCollisionComponent)
-			collisionComponent->m_radius = 30.0f;
-			player->AddComponent(std::move(collisionComponent));
+			//	//Collision Component for Player
+			//auto collisionComponent = CREATE_CLASS(CircleCollisionComponent)
+			//collisionComponent->m_radius = 30.0f;
+			//player->AddComponent(std::move(collisionComponent));
 
-			player->Initialize();
-			m_scene->Add(std::move(player));
+			//player->Initialize();
+			//m_scene->Add(std::move(player));
 		}
 		m_wave++;
 		m_waveSize = random(3 + m_wave, 7 + m_wave);
@@ -122,9 +127,14 @@ namespace bls
 				//Wave Size Check
 				m_enemiesIn++;
 				//Spawn Enemy
-				std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(50.0f, (float)DegreesToRadians(180), Transform((random((float)g_renderer.GetWidth()), random((float)g_renderer.GetHeight())), randomf(360), 1), this);
+				/*std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(50.0f, (float)DegreesToRadians(180), Transform((random((float)g_renderer.GetWidth()), random((float)g_renderer.GetHeight())), randomf(360), 1), this);
 				enemy->tag = "Enemy";
-				enemy->m_game = this;
+				enemy->m_game = this;*/
+
+				auto enemy = INSTANTIATE(Enemy, "Enemy");
+				enemy->transform = bls::Transform{ { bls::randomf(800), bls::randomf(600) }, bls::randomf(bls::TwoPi), 1 };
+				enemy->Initialize();
+				m_scene->Add(std::move(enemy));
 
 				//Enemy Sprite Component Init
 				auto component = CREATE_CLASS(SpriteComponent)

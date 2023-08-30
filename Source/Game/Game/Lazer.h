@@ -24,11 +24,12 @@ namespace bls
 		bool Initialize();
 
 		void Update(float dt) override;
-		void OnCollision(GameObject* object) override;
+		void OnCollisionEnter(GameObject* object) override;
 		//void Read(const rapidjson::Value& value);
 
 	private:
 		float speed = 0;
+		bls::PhysicsComponent* m_physicsComponent = nullptr;
 	};
 
 }

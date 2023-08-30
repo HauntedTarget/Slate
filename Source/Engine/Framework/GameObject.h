@@ -28,8 +28,9 @@ namespace bls{
 		template<typename T>
 		T* GetComponent();
 
-		float GetRadius() { return (30.0f); }
-		virtual void OnCollision(GameObject* other) {}
+		virtual void OnCollisionEnter(GameObject* other) {}
+
+		virtual void OnCollisionExit(GameObject* other) {}
 
 		class Scene* m_scene = nullptr;
 		friend class Scene;

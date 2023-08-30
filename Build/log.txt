@@ -1,5 +1,9 @@
 INFO: Factory.h (Line: 71)
+Class Registered: Enemy
+INFO: Factory.h (Line: 71)
 Class Registered: Lazer
+INFO: Factory.h (Line: 71)
+Class Registered: Player
 INFO: Factory.h (Line: 71)
 Class Registered: TextRenderComponent
 INFO: Factory.h (Line: 71)
@@ -12,11 +16,17 @@ INFO: Factory.h (Line: 71)
 Class Registered: EnginePhyComponents
 INFO: Factory.h (Line: 71)
 Class Registered: CircleCollisionComponent
+INFO: Factory.h (Line: 71)
+Class Registered: Box2DPhysicsComponent
+INFO: Factory.h (Line: 71)
+Class Registered: Box2DCollisionComponent
 INFO: Main.cpp (Line: 70)
 Game Started
+INFO: Scene.cpp (Line: 112)
+Read ->Background
+INFO: Scene.cpp (Line: 112)
+Read ->Beam
 INFO: Factory.h (Line: 79)
 Prototype Registered: Beam
-INFO: EventManager.cpp (Line: 18)
-Event Subcribed: AddLife
-INFO: EventManager.cpp (Line: 18)
-Event Subcribed: OnPlayerDead
+ERROR: Factory.h (Line: 93)
+Class not found in Factory: SpriteRenderComponent

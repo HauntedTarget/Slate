@@ -14,5 +14,9 @@ namespace bls {
 
 		virtual void ApplyForce(const vec2& force) override;
 
+
+		// Inherited via PhysicsComponent
+		void ApplyTorque(float torque) override;
+
 	};
 }

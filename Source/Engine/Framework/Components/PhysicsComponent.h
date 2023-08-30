@@ -8,6 +8,7 @@ namespace bls {
 
 	public:
 		virtual void ApplyForce(const vec2& force) = 0;
+		virtual void ApplyTorque(float torque) = 0;
 
 	public:
 		//Velocity & Acceleration

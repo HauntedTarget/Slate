@@ -49,7 +49,7 @@ namespace bls
 		READ_DATA(value, speed);
 	}
 
-	void Lazer::OnCollision(GameObject* object)
+	void Lazer::OnCollisionEnter(GameObject* object)
 	{
 		if (!m_scene->GetGameObject<Lazer>() && !object->destroyed)
 		{
