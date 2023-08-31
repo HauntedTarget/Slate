@@ -17,9 +17,13 @@ namespace bls
 
 		g_audioSystem.AddAudio("music", "Bullet Hellz.wav");
 
+		//Scene Init
+		m_scene = std::make_unique <bls::Scene>();
+		m_scene->Load("Scene.json");
+		m_scene->Initialize();
+
 		// Init Font
 		m_font = GET_RESOURCE(bls::Font, "Arcade.ttf", 24);
-
 
 		//Create Text Object
 		m_titleText = std::make_unique<Text>(m_font);
@@ -27,11 +31,6 @@ namespace bls
 
 		m_waveText = std::make_unique<Text>(m_font);
 		m_waveText->Create(g_renderer, "FrameLast", Color{ 0.5, 1, 0, 1 });
-
-		//Scene Init
-		m_scene = std::make_unique <bls::Scene>();
-		m_scene->Load("Scene.json");
-		m_scene->Initialize();
 
 		//Add Events
 		EVENT_SUBSCRIBE("AddLife", FrameLastGame::AddLife);
@@ -136,17 +135,17 @@ namespace bls
 				enemy->Initialize();
 				m_scene->Add(std::move(enemy));
 
-				//Enemy Sprite Component Init
-				auto component = CREATE_CLASS(SpriteComponent)
-				component->m_texture = GET_RESOURCE(bls::Texture, "enemy.png", bls::g_renderer);
-				enemy->AddComponent(std::move(component));
+				////Enemy Sprite Component Init
+				//auto component = CREATE_CLASS(SpriteComponent)
+				//component->m_texture = GET_RESOURCE(bls::Texture, "enemy.png", bls::g_renderer);
+				//enemy->AddComponent(std::move(component));
 
-				//Collision Component for Enemy
-				auto collisionComponent = CREATE_CLASS(CircleCollisionComponent)
-				collisionComponent->m_radius = 30.0f;
-				enemy->AddComponent(std::move(collisionComponent));
+				////Collision Component for Enemy
+				//auto collisionComponent = CREATE_CLASS(CircleCollisionComponent)
+				//collisionComponent->m_radius = 30.0f;
+				//enemy->AddComponent(std::move(collisionComponent));
 
-				m_scene->Add(std::move(enemy));
+				//m_scene->Add(std::move(enemy));
 			}
 
 			//Detect Enemies Killed

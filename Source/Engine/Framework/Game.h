@@ -26,10 +26,10 @@ namespace bls
 
 		int GetWave() const { return m_wave; }
 
+		int m_wave = 0, m_life = 0;
 	protected:
 		std::unique_ptr<Scene> m_scene;
 
-		int m_wave = 0, m_life = 0;
 
 	private:
 
